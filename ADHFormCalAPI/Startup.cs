@@ -82,7 +82,7 @@ namespace ADHFormCalAPI
             app.UseSwagger();
             app.UseSwaggerUI(x =>
             {
-                x.SwaggerEndpoint("/swagger/v1/swagger.json", "ADH Api v1");
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "ADHFormCalApi v1");
             });
 
             app.UseEndpoints(endpoints =>
