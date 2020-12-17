@@ -1,87 +1,44 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ADHFormCalAPI.Models.Converters;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ADHFormCalAPI.Controllers
 {
-    public class SampleController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SampleController : ControllerBase
     {
-        // GET: SampleController
-        public ActionResult Index()
+        // GET: api/<ValuesController>
+        [HttpGet]
+        public IActionResult Get(double temp, char symbol)
         {
-            return View();
+            TemperatureModel temperatureModel = new TemperatureModel(temp, symbol);
+
+            return Ok(temperatureModel);
         }
 
-        // GET: SampleController/Details/5
-        public ActionResult Details(int id)
+        // GET api/<ValuesController>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
         {
-            return View();
+            return "value";
         }
 
-        // GET: SampleController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: SampleController/Create
+        // POST api/<ValuesController>
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public void Post([FromBody] string value)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
-        // GET: SampleController/Edit/5
-        public ActionResult Edit(int id)
+        // PUT api/<ValuesController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
         {
-            return View();
         }
 
-        // POST: SampleController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // DELETE api/<ValuesController>/5
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: SampleController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SampleController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
