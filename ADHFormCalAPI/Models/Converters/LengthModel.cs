@@ -3,14 +3,14 @@
     public class LengthModel
     {
         private double _kilometers, _meters, _centimeters
-            , _millimeters, _miles, _yards, _feet, _inches;
+            , _millimeters, _miles, _yards, _foot, _inches;
 
-        // Metric 
         public LengthModel(double value, string unit)
         {
             SetLength(value, unit);
         }
 
+        // Metric 
         public double Kilometers
         {
             get => _kilometers;
@@ -26,6 +26,7 @@
                 }
             }
         }
+        public string KilometerSymbol { get => "km"; }
         public double Meters
         {
             get => _meters;
@@ -41,6 +42,7 @@
                 }
             }
         }
+        public string MeterSymbol { get => "m"; }
         public double Centimeters
         {
             get => _centimeters;
@@ -56,6 +58,7 @@
                 }
             }
         }
+        public string CentimeterSymbol { get => "cm"; }
         public double Millimeters
         {
             get => _millimeters;
@@ -71,6 +74,7 @@
                 }
             }
         }
+        public string MillimeterSymbol { get => "mm"; }
 
         // Imperial 
         public double Miles
@@ -88,6 +92,7 @@
                 }
             }
         }
+        public string MilesSymbol { get => "mi"; }
         public double Yards
         {
             get => _yards;
@@ -103,21 +108,23 @@
                 }
             }
         }
-        public double Feet
+        public string YardSymbol { get => "yd"; }
+        public double Foot
         {
-            get => _feet;
+            get => _foot;
             private set
             {
                 if (value < 0)
                 {
-                    _feet = 0;
+                    _foot = 0;
                 }
                 else
                 {
-                    _feet = value;
+                    _foot = value;
                 }
             }
         }
+        public string FootSymbol { get => "ft"; }
         public double Inches
         {
             get => _inches;
@@ -133,7 +140,7 @@
                 }
             }
         }
-
+        public string IncheSymbol { get => "in"; }
 
         private void SetLength(double value, string unit)
         {
@@ -147,7 +154,7 @@
                         Millimeters = value / 0.000001;
 
                         Miles = value * 0.62137;
-                        Feet = value * 3280.8;
+                        Foot = value * 3280.8;
                         Yards = value * 1093.6;
                         Inches = value * 39370;
 
@@ -161,7 +168,7 @@
                         Millimeters = value / 0.001;
 
                         Miles = value * 0.00053996;
-                        Feet = value * 3.2808;
+                        Foot = value * 3.2808;
                         Yards = value * 1.0936;
                         Inches = value * 39.37;
 
@@ -175,7 +182,7 @@
                         Millimeters = value / 0.1;
 
                         Miles = value * 0.0000062137;
-                        Feet = value * 0.032808;
+                        Foot = value * 0.032808;
                         Yards = value * 0.010936;
                         Inches = value * 0.39370;
                         break;
@@ -188,7 +195,7 @@
                         Millimeters = value;
 
                         Miles = value * 0.00000062137;
-                        Feet = value * 0.0032808;
+                        Foot = value * 0.0032808;
                         Yards = value * 0.0010936;
                         Inches = value * 0.039370;
 
@@ -202,7 +209,7 @@
                         Millimeters = value / 0.00000062137;
 
                         Miles = value;
-                        Feet = value * 5280.0;
+                        Foot = value * 5280.0;
                         Yards = value * 1760.0;
                         Inches = value * 63360;
 
@@ -216,7 +223,7 @@
                         Millimeters = value / 0.0010936;
 
                         Miles = value * 0.00056818;
-                        Feet = value * 3;
+                        Foot = value * 3;
                         Yards = value;
                         Inches = value * 36;
 
@@ -230,7 +237,7 @@
                         Millimeters = value / 0.0032808;
 
                         Miles = value * 0.00018939;
-                        Feet = value;
+                        Foot = value;
                         Yards = value * 0.33333;
                         Inches = value * 12;
 
@@ -244,7 +251,7 @@
                         Millimeters = value / 0.039370;
 
                         Miles = value * 0.000015783;
-                        Feet = value * 0.083333;
+                        Foot = value * 0.083333;
                         Yards = value * 0.027778;
                         Inches = value;
 
