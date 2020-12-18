@@ -2,15 +2,44 @@
 {
     public class WeightModel
     {
+        private double _tons, _kilograms, _grams, _milligrams, _pounds, _ounces;
+        public WeightModel(double value, string unit)
+        {
+            SetWeights(value, unit);
+        }
         // Metric 
-        public double Tons { get; set; }
-        public double Kilograms { get; set; }
-        public double Grams { get; set; }
-        public double Milligrams { get; set; }
+        public double Tons
+        {
+            get => _tons;
+            private set => _tons = value < 0 ? 0 : value;
+        }
+        public double Kilograms
+        {
+            get => _kilograms;
+            private set => _kilograms = value < 0 ? 0 : value;
+        }
+        public double Grams
+        {
+            get => _grams;
+            private set => _grams = value < 0 ? 0 : value;
+        }
+        public double Milligrams
+        {
+            get => _milligrams;
+            private set => _milligrams = value < 0 ? 0 : value;
+        }
 
         // Imperial
-        public double Pounds { get; set; }
-        public double Ounces { get; set; }
+        public double Pounds
+        {
+            get => _pounds;
+            private set => _pounds = value < 0 ? 0 : value;
+        }
+        public double Ounces
+        {
+            get => _ounces;
+            private set => _ounces = value < 0 ? 0 : value;
+        }
 
         private void SetWeights(double value, string unit)
         {
@@ -23,7 +52,7 @@
                         Grams = value / 0.000001;
                         Milligrams = value / 0.000000001;
                         Pounds = value * 2204.6;
-                        Ounces = value * 32151;
+                        Ounces = value * 35274;
                         break;
                     }
                 case "kg":
