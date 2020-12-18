@@ -14,65 +14,25 @@
         public double Kilometers
         {
             get => _kilometers;
-            private set
-            {
-                if (value < 0)
-                {
-                    _kilometers = 0;
-                }
-                else
-                {
-                    _kilometers = value;
-                }
-            }
+            private set => _kilometers = value < 0 ? 0 : value;
         }
-        public string KilometerSymbol { get => "km"; }
+        public string KilometerSymbol => "km";
         public double Meters
         {
             get => _meters;
-            private set
-            {
-                if (value < 0)
-                {
-                    _meters = 0;
-                }
-                else
-                {
-                    _meters = value;
-                }
-            }
+            private set => _meters = value < 0 ? 0 : value;
         }
-        public string MeterSymbol { get => "m"; }
+        public string MeterSymbol => "m";
         public double Centimeters
         {
             get => _centimeters;
-            private set
-            {
-                if (value < 0)
-                {
-                    _centimeters = 0;
-                }
-                else
-                {
-                    _centimeters = value;
-                }
-            }
+            private set => _centimeters = value < 0 ? 0 : value;
         }
-        public string CentimeterSymbol { get => "cm"; }
+        public string CentimeterSymbol => "cm";
         public double Millimeters
         {
             get => _millimeters;
-            private set
-            {
-                if (value < 0)
-                {
-                    _millimeters = 0;
-                }
-                else
-                {
-                    _millimeters = value;
-                }
-            }
+            private set => _millimeters = value < 0 ? 0 : value;
         }
         public string MillimeterSymbol { get => "mm"; }
 
@@ -80,68 +40,27 @@
         public double Miles
         {
             get => _miles;
-            private set
-            {
-                if (value < 0)
-                {
-                    _miles = 0;
-                }
-                else
-                {
-                    _miles = value;
-                }
-            }
+            private set => _miles = value < 0 ? 0 : value;
         }
         public string MilesSymbol { get => "mi"; }
         public double Yards
         {
             get => _yards;
-            private set
-            {
-                if (value < 0)
-                {
-                    _yards = 0;
-                }
-                else
-                {
-                    _yards = value;
-                }
-            }
+            private set => _yards = value < 0 ? 0 : value;
         }
         public string YardSymbol { get => "yd"; }
         public double Foot
         {
             get => _foot;
-            private set
-            {
-                if (value < 0)
-                {
-                    _foot = 0;
-                }
-                else
-                {
-                    _foot = value;
-                }
-            }
+            private set => _foot = value < 0 ? 0 : value;
         }
         public string FootSymbol { get => "ft"; }
         public double Inches
         {
             get => _inches;
-            private set
-            {
-                if (value < 0)
-                {
-                    _inches = 0;
-                }
-                else
-                {
-                    _inches = value;
-                }
-            }
+            private set => _inches = value < 0 ? 0 : value;
         }
         public string IncheSymbol { get => "in"; }
-
         private void SetLength(double value, string unit)
         {
             switch (unit)
