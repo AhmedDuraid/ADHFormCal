@@ -2,27 +2,30 @@
 {
     public class WeightModel
     {
-        private double _tons, _kilograms, _grams, _milligrams, _pounds, _ounces;
+        private double _tonnes, _kilograms, _grams, _milligrams, _pounds, _ounces;
         public WeightModel(double value, string unit)
         {
             SetWeights(value, unit);
         }
         // Metric 
-        public double Tons
+        public double Tonnes
         {
-            get => _tons;
-            private set => _tons = value < 0 ? 0 : value;
+            get => _tonnes;
+            private set => _tonnes = value < 0 ? 0 : value;
         }
+        public string TonnesUnit => "T";
         public double Kilograms
         {
             get => _kilograms;
             private set => _kilograms = value < 0 ? 0 : value;
         }
+        public string KilogramsUnit => "kg";
         public double Grams
         {
             get => _grams;
             private set => _grams = value < 0 ? 0 : value;
         }
+        public string GramsUnit => "g";
         public double Milligrams
         {
             get => _milligrams;
@@ -35,11 +38,13 @@
             get => _pounds;
             private set => _pounds = value < 0 ? 0 : value;
         }
+        public string PoundsUnit => "Ib";
         public double Ounces
         {
             get => _ounces;
             private set => _ounces = value < 0 ? 0 : value;
         }
+        public string OuncesUnit => "oz";
 
         private void SetWeights(double value, string unit)
         {
@@ -47,7 +52,7 @@
             {
                 case "t":
                     {
-                        Tons = value;
+                        Tonnes = value;
                         Kilograms = value / 0.001;
                         Grams = value / 0.000001;
                         Milligrams = value / 0.000000001;
@@ -57,7 +62,7 @@
                     }
                 case "kg":
                     {
-                        Tons = value / 1000;
+                        Tonnes = value / 1000;
                         Kilograms = value;
                         Grams = value / 0.001;
                         Milligrams = value / 0.000001;
@@ -67,7 +72,7 @@
                     }
                 case "g":
                     {
-                        Tons = value / 1000000;
+                        Tonnes = value / 1000000;
                         Kilograms = value / 1000;
                         Grams = value;
                         Milligrams = value / 0.001;
@@ -77,7 +82,7 @@
                     }
                 case "mg":
                     {
-                        Tons = value / 1000000000;
+                        Tonnes = value / 1000000000;
                         Kilograms = value / 1000000;
                         Grams = value / 1000;
                         Milligrams = value / 0.001;
@@ -87,7 +92,7 @@
                     }
                 case "ib":
                     {
-                        Tons = value / 2204.6;
+                        Tonnes = value / 2204.6;
                         Kilograms = value / 2.2046;
                         Grams = value / 0.0022046;
                         Milligrams = value / 0.0000022046;
@@ -97,7 +102,7 @@
                     }
                 case "oz":
                     {
-                        Tons = value / 35274;
+                        Tonnes = value / 35274;
                         Kilograms = value / 35.274;
                         Grams = value / 0.035274;
                         Milligrams = value / 0.000035274;
