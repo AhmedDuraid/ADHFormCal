@@ -12,16 +12,20 @@
             get => _second;
             set => _second = value < 0 ? 0 : value;
         }
+        public string SecondUnit => "s";
         public double Minute
         {
             get => _minute;
             set => _minute = value < 0 ? 0 : value;
         }
+        public string MinuteUnit => "m";
+
         public double Hour
         {
             get => _hour;
             set => _hour = value < 0 ? 0 : value;
         }
+        public string HourUnit => "h";
         public double Day
         {
             get => _day;
