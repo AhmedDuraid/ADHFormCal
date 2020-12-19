@@ -2,18 +2,33 @@
 {
     public class SpeedModel
     {
+        private double _kilometersPerHour, _milesPerHour, _knots;
         public SpeedModel(double values, string unit)
         {
             SpeedConverting(values, unit);
         }
 
         //worldwide
-        public double KilometersPerHour { get; set; }
-        public double Knots { get; set; }
+        public double KilometersPerHour
+        {
+            get => _kilometersPerHour;
+            set => _kilometersPerHour = value < 0 ? 0 : value;
+        }
+        public string KilometersPerHourSymbol => "km/h";
+        public double Knots
+        {
+            get => _knots;
+            set => _knots = value < 0 ? 0 : value;
+        }
+        public string KnotsSymbol => "kn";
 
         //US
-        public double MilesPerHour { get; set; }
-
+        public double MilesPerHour
+        {
+            get => _milesPerHour;
+            set => _milesPerHour = value < 0 ? 0 : value;
+        }
+        public string MilesPerHourSymbol => "mph";
         private void SpeedConverting(double value, string unit)
         {
             switch (unit)

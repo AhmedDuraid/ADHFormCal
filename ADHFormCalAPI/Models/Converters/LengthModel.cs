@@ -76,7 +76,7 @@
                 case "m":
                     {
                         SetMetricValues(value / 1000, value, value / 0.010, value / 0.001);
-                        SetImperialValues(value * 0.00053996, value * 3.2808, value * 1.0936, value * 39.37);
+                        SetImperialValues(value * 0.00062137, value * 3.2808, value * 1.0936, value * 39.37);
                         break;
                     }
                 case "cm":
