@@ -7,6 +7,7 @@
         {
             SetWeights(value, unit);
         }
+        // weight values can not less than 0
         // Metric 
         public double Tonnes
         {
@@ -52,65 +53,51 @@
             {
                 case "t":
                     {
-                        Tonnes = value;
-                        Kilograms = value / 0.001;
-                        Grams = value / 0.000001;
-                        Milligrams = value / 0.000000001;
-                        Pounds = value * 2204.6;
-                        Ounces = value * 35274;
+                        SetValues(value, value / 0.001, value / 0.000001, value / 0.000000001,
+                        value * 2204.6, value * 35274);
                         break;
                     }
                 case "kg":
                     {
-                        Tonnes = value / 1000;
-                        Kilograms = value;
-                        Grams = value / 0.001;
-                        Milligrams = value / 0.000001;
-                        Pounds = value * 2.2046;
-                        Ounces = value * 35.274;
+                        SetValues(value / 1000, value, value / 0.001, value / 0.000001,
+                        value * 2.2046, value * 35.274);
                         break;
                     }
                 case "g":
                     {
-                        Tonnes = value / 1000000;
-                        Kilograms = value / 1000;
-                        Grams = value;
-                        Milligrams = value / 0.001;
-                        Pounds = value * 0.0022046;
-                        Ounces = value * 0.035274;
+                        SetValues(value / 1000000, value / 1000, value, value / 0.001,
+                        value * 0.0022046, value * 0.035274);
                         break;
                     }
                 case "mg":
                     {
-                        Tonnes = value / 1000000000;
-                        Kilograms = value / 1000000;
-                        Grams = value / 1000;
-                        Milligrams = value / 0.001;
-                        Pounds = value * 0.0000022046;
-                        Ounces = value * 0.000035274;
+                        SetValues(value / 1000000000, value / 1000000, value / 1000, value / 0.001,
+                        value * 0.0000022046, value * 0.000035274);
                         break;
                     }
                 case "ib":
                     {
-                        Tonnes = value / 2204.6;
-                        Kilograms = value / 2.2046;
-                        Grams = value / 0.0022046;
-                        Milligrams = value / 0.0000022046;
-                        Pounds = value;
-                        Ounces = value * 16.000;
+                        SetValues(value / 2204.6, value / 2.2046, value / 0.0022046, value / 0.0000022046,
+                        value, value * 16.000);
                         break;
                     }
                 case "oz":
                     {
-                        Tonnes = value / 35274;
-                        Kilograms = value / 35.274;
-                        Grams = value / 0.035274;
-                        Milligrams = value / 0.000035274;
-                        Pounds = value * 0.062500;
-                        Ounces = value;
+                        SetValues(value / 35274, value / 35.274, value / 0.035274, value / 0.000035274,
+                        value * 0.062500, value);
                         break;
                     }
             }
+        }
+
+        private void SetValues(double tonnes, double kilograms, double grams, double milligrams, double pounds, double ounces)
+        {
+            Tonnes = tonnes;
+            Kilograms = kilograms;
+            Grams = grams;
+            Milligrams = milligrams;
+            Pounds = pounds;
+            Ounces = ounces;
         }
     }
 }
