@@ -53,49 +53,52 @@
             {
                 case "t":
                     {
-                        SetValues(value, value / 0.001, value / 0.000001, value / 0.000000001,
-                        value * 2204.6, value * 35274);
+                        SetMetricValues(value, value / 0.001, value / 0.000001, value / 0.000000001);
+                        SetImperialValues(value * 2204.6, value * 35274);
                         break;
                     }
                 case "kg":
                     {
-                        SetValues(value / 1000, value, value / 0.001, value / 0.000001,
-                        value * 2.2046, value * 35.274);
+                        SetMetricValues(value / 1000, value, value / 0.001, value / 0.000001);
+                        SetImperialValues(value * 2.2046, value * 35.274);
                         break;
                     }
                 case "g":
                     {
-                        SetValues(value / 1000000, value / 1000, value, value / 0.001,
-                        value * 0.0022046, value * 0.035274);
+                        SetMetricValues(value / 1000000, value / 1000, value, value / 0.001);
+                        SetImperialValues(value * 0.0022046, value * 0.035274);
                         break;
                     }
                 case "mg":
                     {
-                        SetValues(value / 1000000000, value / 1000000, value / 1000, value / 0.001,
-                        value * 0.0000022046, value * 0.000035274);
+                        SetMetricValues(value / 1000000000, value / 1000000, value / 1000, value / 0.001);
+                        SetImperialValues(value * 0.0000022046, value * 0.000035274);
                         break;
                     }
                 case "ib":
                     {
-                        SetValues(value / 2204.6, value / 2.2046, value / 0.0022046, value / 0.0000022046,
-                        value, value * 16.000);
+                        SetMetricValues(value / 2204.6, value / 2.2046, value / 0.0022046, value / 0.0000022046);
+                        SetImperialValues(value, value * 16.000);
                         break;
                     }
                 case "oz":
                     {
-                        SetValues(value / 35274, value / 35.274, value / 0.035274, value / 0.000035274,
-                        value * 0.062500, value);
+                        SetMetricValues(value / 35274, value / 35.274, value / 0.035274, value / 0.000035274);
+                        SetImperialValues(value * 0.062500, value);
                         break;
                     }
             }
         }
 
-        private void SetValues(double tonnes, double kilograms, double grams, double milligrams, double pounds, double ounces)
+        private void SetMetricValues(double tonnes, double kilograms, double grams, double milligrams)
         {
             Tonnes = tonnes;
             Kilograms = kilograms;
             Grams = grams;
             Milligrams = milligrams;
+        }
+        private void SetImperialValues(double pounds, double ounces)
+        {
             Pounds = pounds;
             Ounces = ounces;
         }
