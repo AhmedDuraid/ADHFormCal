@@ -4,6 +4,11 @@
     {
         double _liter, _centiliter, _milliliter, _cubicMeter, _uSGallon,
             _uSTablespoon, _uSTeaspoon, _uKGallon, _uKTablespoon, _uKTeaspoon;
+
+        public VolumeModel(double value, string unit)
+        {
+            ValumeConverting(value, unit);
+        }
         //Metric
         public double Liter
         {
@@ -60,7 +65,7 @@
             set => _uKTeaspoon = value < 0 ? 0 : value;
         }
 
-        private void SetValume(double value, string unit)
+        private void ValumeConverting(double value, string unit)
         {
             switch (unit)
             {

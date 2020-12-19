@@ -7,7 +7,7 @@
 
         public LengthModel(double value, string unit)
         {
-            SetLength(value, unit);
+            LengthConverting(value, unit);
         }
         // length values can be less than 0
 
@@ -62,7 +62,7 @@
             private set => _inches = value < 0 ? 0 : value;
         }
         public string IncheSymbol => "in";
-        private void SetLength(double value, string unit)
+        private void LengthConverting(double value, string unit)
         {
             switch (unit)
             {
@@ -118,7 +118,6 @@
                     }
             }
         }
-
         private void SetMetricValues(double kilometers, double metersc, double centimeters, double millimeters)
         {
             Kilometers = kilometers;
@@ -133,6 +132,5 @@
             Yards = yards;
             Inches = inches;
         }
-
     }
 }

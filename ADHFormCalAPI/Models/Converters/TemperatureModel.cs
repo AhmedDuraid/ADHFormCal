@@ -2,13 +2,13 @@
 {
     public class TemperatureModel
     {
-        private readonly double KelvinConst = 273.15;
-        private readonly int _FreezingPointF = 32;
-        private readonly double FahrenheitCelsiusConst = 1.8;
+        private readonly double _kelvinConst = 273.15;
+        private readonly int _freezingPointF = 32;
+        private readonly double _fahrenheitCelsiusConst = 1.8;
 
         public TemperatureModel(double temperature, char unit)
         {
-            SetTemperature(temperature, unit);
+            TemperatureConverting(temperature, unit);
         }
 
         // Celsius 
@@ -20,7 +20,7 @@
 
         // Fahrenheit 
         public double TemperatureF { get; set; }
-        public int FreezingPointF => _FreezingPointF;
+        public int FreezingPointF => _freezingPointF;
         public int BoilingPointF => 212;
         public char SymbolF => 'F';
         public double BodyTempF => 98.6;
@@ -29,37 +29,45 @@
         public double TemperatureK { get; set; }
         public char SymbolK => 'K';
 
-        private void SetTemperature(double temperature, char unit)
+        private void TemperatureConverting(double temperature, char unit)
         {
             switch (unit)
             {
-                case 'C':
+                case 'c':
                     {
-                        SetValues(temperature, (temperature * FahrenheitCelsiusConst) + _FreezingPointF,
-                            temperature + KelvinConst);
+                        SetTemperatureCValue(temperature);
+                        SetTemperatureFValue((temperature * _fahrenheitCelsiusConst) + _freezingPointF);
+                        SetTemperatureKValue(temperature + _kelvinConst);
                         break;
                     }
 
-                case 'F':
+                case 'f':
                     {
-                        SetValues((temperature - _FreezingPointF) / FahrenheitCelsiusConst,
-                            temperature, TemperatureC + KelvinConst);
+                        SetTemperatureCValue((temperature - _freezingPointF) / _fahrenheitCelsiusConst);
+                        SetTemperatureFValue(temperature);
+                        SetTemperatureKValue((temperature - _freezingPointF) / _kelvinConst);
                         break;
-
                     }
-                case 'K':
+                case 'k':
                     {
-                        SetValues(temperature - KelvinConst, (TemperatureC * FahrenheitCelsiusConst) + _FreezingPointF,
-                            temperature);
+                        SetTemperatureCValue(temperature - _kelvinConst);
+                        SetTemperatureFValue(((temperature - _kelvinConst) * _freezingPointF) + _freezingPointF);
+                        SetTemperatureKValue(temperature);
                         break;
                     }
             }
         }
 
-        private void SetValues(double temperatureC, double temperatureF, double temperatureK)
+        private void SetTemperatureCValue(double temperatureC)
         {
             TemperatureC = temperatureC;
+        }
+        private void SetTemperatureFValue(double temperatureF)
+        {
             TemperatureF = temperatureF;
+        }
+        private void SetTemperatureKValue(double temperatureK)
+        {
             TemperatureK = temperatureK;
         }
     }
