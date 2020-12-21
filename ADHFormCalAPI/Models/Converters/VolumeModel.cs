@@ -15,21 +15,25 @@
             get => _liter;
             set => _liter = value < 0 ? 0 : value;
         }
+        public string LiterSymbol => "L";
         public double Centiliter
         {
             get => _centiliter;
             set => _centiliter = value < 0 ? 0 : value;
         }
+        public string CentiliterSymbol => "cl";
         public double Milliliter
         {
             get => _milliliter;
             set => _milliliter = value < 0 ? 0 : value;
         }
+        public string MilliliterSymbol => "ml";
         public double CubicMeter
         {
             get => _cubicMeter;
             set => _cubicMeter = value < 0 ? 0 : value;
         }
+        public string CubicMeterSymbol => "m^3";
 
         // US
         public double USGallon
@@ -37,16 +41,20 @@
             get => _uSGallon;
             set => _uSGallon = value < 0 ? 0 : value;
         }
+        public string USGallonSymbol => "US gal";
         public double USTablespoon
         {
             get => _uSTablespoon;
             set => _uSTablespoon = value < 0 ? 0 : value;
         }
+        public string USTablespoonSymbol => "US tblsp";
         public double USTeaspoon
         {
             get => _uSTeaspoon;
             set => _uSTeaspoon = value < 0 ? 0 : value;
         }
+        public string USTeaspoonSymbol => "US tsp";
+
 
         // UK
         public double UKGallon
@@ -54,16 +62,19 @@
             get => _uKGallon;
             set => _uKGallon = value < 0 ? 0 : value;
         }
+        public string UKGallonSymbol => "UK gal";
         public double UKTablespoon
         {
             get => _uKTablespoon;
             set => _uKTablespoon = value < 0 ? 0 : value;
         }
+        public string UKTablespoonSymbol => "UK tblsp";
         public double UKTeaspoon
         {
             get => _uKTeaspoon;
             set => _uKTeaspoon = value < 0 ? 0 : value;
         }
+        public string UKTeaspoonSymbol => "UK tsp";
 
         private void ValumeConverting(double value, string unit)
         {
