@@ -20,6 +20,7 @@ namespace ADHFormCalAPI.Calculator.Converters
 
             double Kilometers, Meters, Centimeters, Millimeters, Miles, Foot, Yards, Inches;
 
+
             //km
             if (model.KilometerSymbol == OperationUnit)
             {
@@ -33,8 +34,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 1093.6;
                 Inches = Value * 39370;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -52,8 +53,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 1.0936;
                 Inches = Value * 39.37;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -71,8 +72,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 0.010936;
                 Inches = Value * 0.39370;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -90,8 +91,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 0.0010936;
                 Inches = Value * 0.039370;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -109,11 +110,12 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 1760.0;
                 Inches = Value * 6336;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
+
             //ft
             if (model.FootSymbol == OperationUnit)
             {
@@ -127,8 +129,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 0.33333;
                 Inches = Value * 12;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -146,8 +148,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value;
                 Inches = Value * 36;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -165,8 +167,8 @@ namespace ADHFormCalAPI.Calculator.Converters
                 Yards = Value * 0.027778;
                 Inches = Value;
 
-                LengthMetricConverting(model, Kilometers, Meters, Centimeters, Millimeters);
-                LengthImperialConverting(model, Miles, Foot, Yards, Inches);
+                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
+                SetImperialValues(model, Miles, Foot, Yards, Inches);
 
                 return model;
             }
@@ -174,14 +176,14 @@ namespace ADHFormCalAPI.Calculator.Converters
         }
 
 
-        private void LengthMetricConverting(LengthModel model, double kilometers, double metersc, double centimeters, double millimeters)
+        private void SetMetricValues(LengthModel model, double kilometers, double metersc, double centimeters, double millimeters)
         {
             model.Kilometers = kilometers;
             model.Meters = metersc;
             model.Centimeters = centimeters;
             model.Millimeters = millimeters;
         }
-        private void LengthImperialConverting(LengthModel model, double miles, double foot, double yards, double inches)
+        private void SetImperialValues(LengthModel model, double miles, double foot, double yards, double inches)
         {
             model.Miles = miles;
             model.Foot = foot;
