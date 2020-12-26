@@ -4,48 +4,50 @@ namespace ADHFormCalAPI.Calculator.Converters
 {
     public class TemperatureConvertingOperations
     {
-        private string OperationUnit { get; set; }
-        private double Value { get; set; }
-        private double FahrenheitCelsiusConst => 1.8;
-        private double KelvinConst => 273.15;
+        private readonly string _operationUnit;
+        private readonly double _value;
+        private readonly double _fahrenheitCelsiusConst;
+        private readonly double _kelvinConst;
 
         public TemperatureConvertingOperations(string operationUnit, double value)
         {
-            OperationUnit = operationUnit;
-            Value = value;
+            _operationUnit = operationUnit;
+            _value = value;
+            _fahrenheitCelsiusConst = 1.8;
+            _kelvinConst = 273.15;
         }
 
         public TemperatureModel TemperatureConverting()
         {
             TemperatureModel model = new TemperatureModel();
 
-            // C
-            if (OperationUnit == model.CSymbol.ToString())
+            // c
+            if (_operationUnit == model.CSymbol.ToString())
             {
-                model.TemperatureC = Value;
-                model.TemperatureF = (Value * FahrenheitCelsiusConst) + model.FreezingPointF;
-                model.TemperatureK = Value + KelvinConst;
+                model.TemperatureC = _value;
+                model.TemperatureF = (_value * _fahrenheitCelsiusConst) + model.FreezingPointF;
+                model.TemperatureK = _value + _kelvinConst;
 
                 return model;
             }
 
-            //F
-            if (OperationUnit == model.CSymbol.ToString())
+            //f
+            if (_operationUnit == model.CSymbol.ToString())
             {
-                model.TemperatureC = (Value - model.FreezingPointF) / FahrenheitCelsiusConst;
-                model.TemperatureF = Value;
-                model.TemperatureK = (Value - model.FreezingPointF) / KelvinConst;
+                model.TemperatureC = (_value - model.FreezingPointF) / _fahrenheitCelsiusConst;
+                model.TemperatureF = _value;
+                model.TemperatureK = (_value - model.FreezingPointF) / _kelvinConst;
 
                 return model;
             }
 
-            //K
-            if (OperationUnit == model.CSymbol.ToString())
+            //k
+            if (_operationUnit == model.CSymbol.ToString())
             {
 
-                model.TemperatureC = Value - KelvinConst;
-                model.TemperatureF = ((Value - KelvinConst) * model.FreezingPointF) + model.FreezingPointF;
-                model.TemperatureK = Value;
+                model.TemperatureC = _value - _kelvinConst;
+                model.TemperatureF = ((_value - _kelvinConst) * model.FreezingPointF) + model.FreezingPointF;
+                model.TemperatureK = _value;
 
                 return model;
             }

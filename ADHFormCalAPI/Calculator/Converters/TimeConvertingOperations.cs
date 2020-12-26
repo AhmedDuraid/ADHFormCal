@@ -4,14 +4,14 @@ namespace ADHFormCalAPI.Calculator.Converters
 {
     public class TimeConvertingOperations
     {
-        private string OperationUnit { get; set; }
-        private double Value { get; set; }
+        private readonly string _operationUnit;
+        private readonly double _value;
 
 
         public TimeConvertingOperations(string operationUnit, double value)
         {
-            OperationUnit = operationUnit;
-            Value = value;
+            _operationUnit = operationUnit;
+            _value = value;
         }
 
         public TimeModel TimeConverting()
@@ -19,79 +19,79 @@ namespace ADHFormCalAPI.Calculator.Converters
             TimeModel model = new TimeModel();
 
             //s
-            if (model.SecondSymbol.ToString() == OperationUnit)
+            if (model.SecondSymbol.ToString() == _operationUnit)
             {
-                model.Second = Value;
-                model.Minute = Value / 60;
-                model.Hour = Value / 3600;
-                model.Day = Value / 86400;
-                model.Week = Value / 604800;
-                model.Month = Value / 2628000;
+                model.Second = _value;
+                model.Minute = _value / 60;
+                model.Hour = _value / 3600;
+                model.Day = _value / 86400;
+                model.Week = _value / 604800;
+                model.Month = _value / 2628000;
 
                 return model;
             }
 
             //m
-            if (model.MinuteSymbol.ToString() == OperationUnit)
+            if (model.MinuteSymbol.ToString() == _operationUnit)
             {
-                model.Second = Value * 60;
-                model.Minute = Value;
-                model.Hour = Value / 60;
-                model.Day = Value / 1440;
-                model.Week = Value / 10080;
-                model.Month = Value / 43800;
+                model.Second = _value * 60;
+                model.Minute = _value;
+                model.Hour = _value / 60;
+                model.Day = _value / 1440;
+                model.Week = _value / 10080;
+                model.Month = _value / 43800;
 
                 return model;
             }
 
             //h
-            if (model.HourSymbol.ToString() == OperationUnit)
+            if (model.HourSymbol.ToString() == _operationUnit)
             {
-                model.Second = Value * 3600;
-                model.Minute = Value * 60;
-                model.Hour = Value;
-                model.Day = Value / 24;
-                model.Week = Value / 168;
-                model.Month = Value / 730;
+                model.Second = _value * 3600;
+                model.Minute = _value * 60;
+                model.Hour = _value;
+                model.Day = _value / 24;
+                model.Week = _value / 168;
+                model.Month = _value / 730;
 
                 return model;
             }
 
             //d
-            if (model.DaySymbol.ToString() == OperationUnit)
+            if (model.DaySymbol.ToString() == _operationUnit)
             {
-                model.Second = Value * 86400;
-                model.Minute = Value * 1440;
-                model.Hour = Value * 24;
-                model.Day = Value;
-                model.Week = Value / 7;
-                model.Month = Value / 30.417;
+                model.Second = _value * 86400;
+                model.Minute = _value * 1440;
+                model.Hour = _value * 24;
+                model.Day = _value;
+                model.Week = _value / 7;
+                model.Month = _value / 30.417;
 
                 return model;
             }
 
             //w
-            if (model.WeekSymbol.ToString() == OperationUnit)
+            if (model.WeekSymbol.ToString() == _operationUnit)
             {
-                model.Second = Value * 604800;
-                model.Minute = Value * 10080;
-                model.Hour = Value * 168;
-                model.Day = Value * 7;
-                model.Week = Value;
-                model.Month = Value / 4.345;
+                model.Second = _value * 604800;
+                model.Minute = _value * 10080;
+                model.Hour = _value * 168;
+                model.Day = _value * 7;
+                model.Week = _value;
+                model.Month = _value / 4.345;
 
                 return model;
             }
 
             //M
-            if (model.MonthSymbol.ToString() == OperationUnit)
+            if (model.MonthSymbol.ToString() == _operationUnit)
             {
-                model.Second = Value * 2628000;
-                model.Minute = Value * 43800;
-                model.Hour = Value * 730;
-                model.Day = Value * 30.417;
-                model.Week = Value * 4.345;
-                model.Month = Value;
+                model.Second = _value * 2628000;
+                model.Minute = _value * 43800;
+                model.Hour = _value * 730;
+                model.Day = _value * 30.417;
+                model.Week = _value * 4.345;
+                model.Month = _value;
 
                 return model;
             }

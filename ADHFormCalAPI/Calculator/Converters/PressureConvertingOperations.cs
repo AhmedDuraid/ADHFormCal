@@ -4,13 +4,13 @@ namespace ADHFormCalAPI.Calculator.Converters
 {
     public class PressureConvertingOperations
     {
-        private string OperationUnit { get; set; }
-        private double Value { get; set; }
+        private readonly string _operationUnit;
+        private readonly double _value;
 
         public PressureConvertingOperations(string operationUnit, double value)
         {
-            OperationUnit = operationUnit;
-            Value = value;
+            _operationUnit = operationUnit;
+            _value = value;
         }
 
         public PressureModel PressureConverting()
@@ -18,31 +18,31 @@ namespace ADHFormCalAPI.Calculator.Converters
             PressureModel model = new PressureModel();
 
             // pa
-            if (model.PascalsSymbol == OperationUnit)
+            if (model.PascalsSymbol == _operationUnit)
             {
-                model.Pascals = Value;
-                model.Bar = Value / 100000;
-                model.Torrs = Value * 0.0075006;
+                model.Pascals = _value;
+                model.Bar = _value / 100000;
+                model.Torrs = _value * 0.0075006;
 
                 return model;
             }
 
             // bar
-            if (model.BarSymbol == OperationUnit)
+            if (model.BarSymbol == _operationUnit)
             {
-                model.Pascals = Value / 0.000010000;
-                model.Bar = Value;
-                model.Torrs = Value * 750.06;
+                model.Pascals = _value / 0.000010000;
+                model.Bar = _value;
+                model.Torrs = _value * 750.06;
 
                 return model;
             }
 
             //torr
-            if (model.TorrsSymbol == OperationUnit)
+            if (model.TorrsSymbol == _operationUnit)
             {
-                model.Pascals = Value / 0.0075006;
-                model.Bar = Value / 750.06;
-                model.Torrs = Value;
+                model.Pascals = _value / 0.0075006;
+                model.Bar = _value / 750.06;
+                model.Torrs = _value;
 
                 return model;
             }

@@ -4,13 +4,13 @@ namespace ADHFormCalAPI.Calculator.Converters
 {
     public class SpeedConvertingOperations
     {
-        private string OperationUnit { get; set; }
-        private double Value { get; set; }
+        private readonly string _operationUnit;
+        private readonly double _value;
 
         public SpeedConvertingOperations(string operationUnit, double value)
         {
-            OperationUnit = operationUnit;
-            Value = value;
+            _operationUnit = operationUnit;
+            _value = value;
         }
 
         public SpeedModel SpeedConverting()
@@ -18,31 +18,31 @@ namespace ADHFormCalAPI.Calculator.Converters
             SpeedModel model = new SpeedModel();
 
             //kmph
-            if (model.KilometersPerHourSymbol == OperationUnit)
+            if (model.KilometersPerHourSymbol == _operationUnit)
             {
-                model.KilometersPerHour = Value;
-                model.Knots = Value / 1.852;
-                model.MilesPerHour = Value / 1.609;
+                model.KilometersPerHour = _value;
+                model.Knots = _value / 1.852;
+                model.MilesPerHour = _value / 1.609;
 
                 return model;
             }
 
             //kn
-            if (model.KnotsSymbol == OperationUnit)
+            if (model.KnotsSymbol == _operationUnit)
             {
-                model.KilometersPerHour = Value * 1.852;
-                model.Knots = Value;
-                model.MilesPerHour = Value * 1.151;
+                model.KilometersPerHour = _value * 1.852;
+                model.Knots = _value;
+                model.MilesPerHour = _value * 1.151;
 
                 return model;
             }
 
             //mph
-            if (model.MilesPerHourSymbol == OperationUnit)
+            if (model.MilesPerHourSymbol == _operationUnit)
             {
-                model.KilometersPerHour = Value * 1.609;
-                model.Knots = Value / 1.151;
-                model.MilesPerHour = Value;
+                model.KilometersPerHour = _value * 1.609;
+                model.Knots = _value / 1.151;
+                model.MilesPerHour = _value;
             }
 
             return null;

@@ -4,13 +4,13 @@ namespace ADHFormCalAPI.Calculator.Converters
 {
     public class LengthConvertingOperations
     {
-        private string OperationUnit { get; set; }
-        private double Value { get; set; }
+        private readonly string _operationUnit;
+        private readonly double _value;
 
         public LengthConvertingOperations(string operationUnit, double value)
         {
-            OperationUnit = operationUnit;
-            Value = value;
+            _operationUnit = operationUnit;
+            _value = value;
 
         }
 
@@ -19,123 +19,123 @@ namespace ADHFormCalAPI.Calculator.Converters
             LengthModel model = new LengthModel();
 
             //km
-            if (model.KilometerSymbol == OperationUnit)
+            if (model.KilometerSymbol == _operationUnit)
             {
-                model.Kilometers = Value;
-                model.Meters = Value / 0.001;
-                model.Centimeters = Value / 0.00001;
-                model.Millimeters = Value / 0.000001;
-                model.Miles = Value * 0.62137;
-                model.Foot = Value * 3280.8;
-                model.Yards = Value * 1093.6;
-                model.Inches = Value * 39370;
+                model.Kilometers = _value;
+                model.Meters = _value / 0.001;
+                model.Centimeters = _value / 0.00001;
+                model.Millimeters = _value / 0.000001;
+                model.Miles = _value * 0.62137;
+                model.Foot = _value * 3280.8;
+                model.Yards = _value * 1093.6;
+                model.Inches = _value * 39370;
 
                 return model;
             }
 
             // m
-            if (model.MeterSymbol.ToString() == OperationUnit)
+            if (model.MeterSymbol.ToString() == _operationUnit)
             {
-                model.Kilometers = Value / 1000;
-                model.Meters = Value;
-                model.Centimeters = Value / 0.010;
-                model.Millimeters = Value / 0.001;
-                model.Miles = Value * 0.00062137;
-                model.Foot = Value * 3.2808;
-                model.Yards = Value * 1.0936;
-                model.Inches = Value * 39.37;
+                model.Kilometers = _value / 1000;
+                model.Meters = _value;
+                model.Centimeters = _value / 0.010;
+                model.Millimeters = _value / 0.001;
+                model.Miles = _value * 0.00062137;
+                model.Foot = _value * 3.2808;
+                model.Yards = _value * 1.0936;
+                model.Inches = _value * 39.37;
 
                 return model;
             }
 
             //cm
-            if (model.CentimeterSymbol == OperationUnit)
+            if (model.CentimeterSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 100000;
-                model.Meters = Value / 100;
-                model.Centimeters = Value;
-                model.Millimeters = Value / 0.1;
-                model.Miles = Value * 0.0000062137;
-                model.Foot = Value * 0.032808;
-                model.Yards = Value * 0.010936;
-                model.Inches = Value * 0.39370;
+                model.Kilometers = _value / 100000;
+                model.Meters = _value / 100;
+                model.Centimeters = _value;
+                model.Millimeters = _value / 0.1;
+                model.Miles = _value * 0.0000062137;
+                model.Foot = _value * 0.032808;
+                model.Yards = _value * 0.010936;
+                model.Inches = _value * 0.39370;
 
                 return model;
             }
 
             //mm
-            if (model.MillimeterSymbol == OperationUnit)
+            if (model.MillimeterSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 1000000;
-                model.Meters = Value / 1000;
-                model.Centimeters = Value / 10;
-                model.Millimeters = Value;
-                model.Miles = Value * 0.00000062137;
-                model.Foot = Value * 0.0032808;
-                model.Yards = Value * 0.0010936;
-                model.Inches = Value * 0.039370;
+                model.Kilometers = _value / 1000000;
+                model.Meters = _value / 1000;
+                model.Centimeters = _value / 10;
+                model.Millimeters = _value;
+                model.Miles = _value * 0.00000062137;
+                model.Foot = _value * 0.0032808;
+                model.Yards = _value * 0.0010936;
+                model.Inches = _value * 0.039370;
 
                 return model;
             }
 
             //mi
-            if (model.MilesSymbol == OperationUnit)
+            if (model.MilesSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 0.62137;
-                model.Meters = Value / 0.00062137;
-                model.Centimeters = Value / 0.0000062137;
-                model.Millimeters = Value / 0.00000062137;
-                model.Miles = Value;
-                model.Foot = Value * 5280.0;
-                model.Yards = Value * 1760.0;
-                model.Inches = Value * 6336;
+                model.Kilometers = _value / 0.62137;
+                model.Meters = _value / 0.00062137;
+                model.Centimeters = _value / 0.0000062137;
+                model.Millimeters = _value / 0.00000062137;
+                model.Miles = _value;
+                model.Foot = _value * 5280.0;
+                model.Yards = _value * 1760.0;
+                model.Inches = _value * 6336;
 
                 return model;
             }
 
             //ft
-            if (model.FootSymbol == OperationUnit)
+            if (model.FootSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 3280.8;
-                model.Meters = Value / 3.2808;
-                model.Centimeters = Value / 0.032808;
-                model.Millimeters = Value / 0.0032808;
-                model.Miles = Value * 0.00018939;
-                model.Foot = Value;
-                model.Yards = Value * 0.33333;
-                model.Inches = Value * 12;
+                model.Kilometers = _value / 3280.8;
+                model.Meters = _value / 3.2808;
+                model.Centimeters = _value / 0.032808;
+                model.Millimeters = _value / 0.0032808;
+                model.Miles = _value * 0.00018939;
+                model.Foot = _value;
+                model.Yards = _value * 0.33333;
+                model.Inches = _value * 12;
 
                 return model;
             }
 
             //yi
-            if (model.YardSymbol == OperationUnit)
+            if (model.YardSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 1093.6;
-                model.Meters = Value / 1.0936;
-                model.Centimeters = Value / 0.010936;
-                model.Millimeters = Value / 0.0010936;
+                model.Kilometers = _value / 1093.6;
+                model.Meters = _value / 1.0936;
+                model.Centimeters = _value / 0.010936;
+                model.Millimeters = _value / 0.0010936;
 
-                model.Miles = Value * 0.00056818;
-                model.Foot = Value * 3;
-                model.Yards = Value;
-                model.Inches = Value * 36;
+                model.Miles = _value * 0.00056818;
+                model.Foot = _value * 3;
+                model.Yards = _value;
+                model.Inches = _value * 36;
 
                 return model;
             }
 
             //in
-            if (model.IncheSymbol == OperationUnit)
+            if (model.IncheSymbol == _operationUnit)
             {
-                model.Kilometers = Value / 39370;
-                model.Meters = Value / 39.370;
-                model.Centimeters = Value / 0.39370;
-                model.Millimeters = Value / 0.039370;
+                model.Kilometers = _value / 39370;
+                model.Meters = _value / 39.370;
+                model.Centimeters = _value / 0.39370;
+                model.Millimeters = _value / 0.039370;
 
-                model.Miles = Value * 0.000015783;
-                model.Foot = Value * 0.083333;
-                model.Yards = Value * 0.027778;
-                model.Inches = Value;
+                model.Miles = _value * 0.000015783;
+                model.Foot = _value * 0.083333;
+                model.Yards = _value * 0.027778;
+                model.Inches = _value;
 
                 return model;
             }

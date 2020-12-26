@@ -4,8 +4,6 @@
     {
         private double _second, _minute, _hour, _day, _week, _month;
 
-
-
         // time values can be less than 0 
         public double Second
         {
