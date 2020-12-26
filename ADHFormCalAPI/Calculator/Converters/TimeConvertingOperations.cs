@@ -17,20 +17,16 @@ namespace ADHFormCalAPI.Calculator.Converters
         public TimeModel TimeConverting()
         {
             TimeModel model = new TimeModel();
-            double Second, Minute, Hour, Day, Week, Month;
 
             //s
             if (model.SecondSymbol.ToString() == OperationUnit)
             {
-                Second = Value;
-                Minute = Value / 60;
-                Hour = Value / 3600;
-                Day = Value / 86400;
-                Week = Value / 604800;
-                Month = Value / 2628000;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value;
+                model.Minute = Value / 60;
+                model.Hour = Value / 3600;
+                model.Day = Value / 86400;
+                model.Week = Value / 604800;
+                model.Month = Value / 2628000;
 
                 return model;
             }
@@ -38,15 +34,12 @@ namespace ADHFormCalAPI.Calculator.Converters
             //m
             if (model.MinuteSymbol.ToString() == OperationUnit)
             {
-                Second = Value * 60;
-                Minute = Value;
-                Hour = Value / 60;
-                Day = Value / 1440;
-                Week = Value / 10080;
-                Month = Value / 43800;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value * 60;
+                model.Minute = Value;
+                model.Hour = Value / 60;
+                model.Day = Value / 1440;
+                model.Week = Value / 10080;
+                model.Month = Value / 43800;
 
                 return model;
             }
@@ -54,15 +47,12 @@ namespace ADHFormCalAPI.Calculator.Converters
             //h
             if (model.HourSymbol.ToString() == OperationUnit)
             {
-                Second = Value * 3600;
-                Minute = Value * 60;
-                Hour = Value;
-                Day = Value / 24;
-                Week = Value / 168;
-                Month = Value / 730;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value * 3600;
+                model.Minute = Value * 60;
+                model.Hour = Value;
+                model.Day = Value / 24;
+                model.Week = Value / 168;
+                model.Month = Value / 730;
 
                 return model;
             }
@@ -70,15 +60,12 @@ namespace ADHFormCalAPI.Calculator.Converters
             //d
             if (model.DaySymbol.ToString() == OperationUnit)
             {
-                Second = Value * 86400;
-                Minute = Value * 1440;
-                Hour = Value * 24;
-                Day = Value;
-                Week = Value / 7;
-                Month = Value / 30.417;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value * 86400;
+                model.Minute = Value * 1440;
+                model.Hour = Value * 24;
+                model.Day = Value;
+                model.Week = Value / 7;
+                model.Month = Value / 30.417;
 
                 return model;
             }
@@ -86,15 +73,12 @@ namespace ADHFormCalAPI.Calculator.Converters
             //w
             if (model.WeekSymbol.ToString() == OperationUnit)
             {
-                Second = Value * 604800;
-                Minute = Value * 10080;
-                Hour = Value * 168;
-                Day = Value * 7;
-                Week = Value;
-                Month = Value / 4.345;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value * 604800;
+                model.Minute = Value * 10080;
+                model.Hour = Value * 168;
+                model.Day = Value * 7;
+                model.Week = Value;
+                model.Month = Value / 4.345;
 
                 return model;
             }
@@ -102,32 +86,16 @@ namespace ADHFormCalAPI.Calculator.Converters
             //M
             if (model.MonthSymbol.ToString() == OperationUnit)
             {
-                Second = Value * 2628000;
-                Minute = Value * 43800;
-                Hour = Value * 730;
-                Day = Value * 30.417;
-                Week = Value * 4.345;
-                Month = Value;
-
-                SetHourRelatedValues(model, Second, Minute, Hour);
-                SetDayRelatedValues(model, Day, Week, Month);
+                model.Second = Value * 2628000;
+                model.Minute = Value * 43800;
+                model.Hour = Value * 730;
+                model.Day = Value * 30.417;
+                model.Week = Value * 4.345;
+                model.Month = Value;
 
                 return model;
             }
             return null;
-        }
-
-        private void SetHourRelatedValues(TimeModel model, double second, double minute, double hour)
-        {
-            model.Second = second;
-            model.Minute = minute;
-            model.Hour = hour;
-        }
-        private void SetDayRelatedValues(TimeModel model, double day, double week, double month)
-        {
-            model.Day = day;
-            model.Week = week;
-            model.Month = month;
         }
     }
 }

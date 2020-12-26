@@ -18,43 +18,32 @@ namespace ADHFormCalAPI.Calculator.Converters
         {
             LengthModel model = new LengthModel();
 
-            double Kilometers, Meters, Centimeters, Millimeters, Miles, Foot, Yards, Inches;
-
-
             //km
             if (model.KilometerSymbol == OperationUnit)
             {
-                Kilometers = Value;
-                Meters = Value / 0.001;
-                Centimeters = Value / 0.00001;
-                Millimeters = Value / 0.000001;
-
-                Miles = Value * 0.62137;
-                Foot = Value * 3280.8;
-                Yards = Value * 1093.6;
-                Inches = Value * 39370;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value;
+                model.Meters = Value / 0.001;
+                model.Centimeters = Value / 0.00001;
+                model.Millimeters = Value / 0.000001;
+                model.Miles = Value * 0.62137;
+                model.Foot = Value * 3280.8;
+                model.Yards = Value * 1093.6;
+                model.Inches = Value * 39370;
 
                 return model;
             }
 
             // m
-            if (model.MeterSymbol == OperationUnit)
+            if (model.MeterSymbol.ToString() == OperationUnit)
             {
-                Kilometers = Value / 1000;
-                Meters = Value;
-                Centimeters = Value / 0.010;
-                Millimeters = Value / 0.001;
-
-                Miles = Value * 0.00062137;
-                Foot = Value * 3.2808;
-                Yards = Value * 1.0936;
-                Inches = Value * 39.37;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value / 1000;
+                model.Meters = Value;
+                model.Centimeters = Value / 0.010;
+                model.Millimeters = Value / 0.001;
+                model.Miles = Value * 0.00062137;
+                model.Foot = Value * 3.2808;
+                model.Yards = Value * 1.0936;
+                model.Inches = Value * 39.37;
 
                 return model;
             }
@@ -62,18 +51,14 @@ namespace ADHFormCalAPI.Calculator.Converters
             //cm
             if (model.CentimeterSymbol == OperationUnit)
             {
-                Kilometers = Value / 100000;
-                Meters = Value / 100;
-                Centimeters = Value;
-                Millimeters = Value / 0.1;
-
-                Miles = Value * 0.0000062137;
-                Foot = Value * 0.032808;
-                Yards = Value * 0.010936;
-                Inches = Value * 0.39370;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value / 100000;
+                model.Meters = Value / 100;
+                model.Centimeters = Value;
+                model.Millimeters = Value / 0.1;
+                model.Miles = Value * 0.0000062137;
+                model.Foot = Value * 0.032808;
+                model.Yards = Value * 0.010936;
+                model.Inches = Value * 0.39370;
 
                 return model;
             }
@@ -81,18 +66,14 @@ namespace ADHFormCalAPI.Calculator.Converters
             //mm
             if (model.MillimeterSymbol == OperationUnit)
             {
-                Kilometers = Value / 1000000;
-                Meters = Value / 1000;
-                Centimeters = Value / 10;
-                Millimeters = Value;
-
-                Miles = Value * 0.00000062137;
-                Foot = Value * 0.0032808;
-                Yards = Value * 0.0010936;
-                Inches = Value * 0.039370;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value / 1000000;
+                model.Meters = Value / 1000;
+                model.Centimeters = Value / 10;
+                model.Millimeters = Value;
+                model.Miles = Value * 0.00000062137;
+                model.Foot = Value * 0.0032808;
+                model.Yards = Value * 0.0010936;
+                model.Inches = Value * 0.039370;
 
                 return model;
             }
@@ -100,18 +81,14 @@ namespace ADHFormCalAPI.Calculator.Converters
             //mi
             if (model.MilesSymbol == OperationUnit)
             {
-                Kilometers = Value / 0.62137;
-                Meters = Value / 0.00062137;
-                Centimeters = Value / 0.0000062137;
-                Millimeters = Value / 0.00000062137;
-
-                Miles = Value;
-                Foot = Value * 5280.0;
-                Yards = Value * 1760.0;
-                Inches = Value * 6336;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value / 0.62137;
+                model.Meters = Value / 0.00062137;
+                model.Centimeters = Value / 0.0000062137;
+                model.Millimeters = Value / 0.00000062137;
+                model.Miles = Value;
+                model.Foot = Value * 5280.0;
+                model.Yards = Value * 1760.0;
+                model.Inches = Value * 6336;
 
                 return model;
             }
@@ -119,18 +96,14 @@ namespace ADHFormCalAPI.Calculator.Converters
             //ft
             if (model.FootSymbol == OperationUnit)
             {
-                Kilometers = Value / 3280.8;
-                Meters = Value / 3.2808;
-                Centimeters = Value / 0.032808;
-                Millimeters = Value / 0.0032808;
-
-                Miles = Value * 0.00018939;
-                Foot = Value;
-                Yards = Value * 0.33333;
-                Inches = Value * 12;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Kilometers = Value / 3280.8;
+                model.Meters = Value / 3.2808;
+                model.Centimeters = Value / 0.032808;
+                model.Millimeters = Value / 0.0032808;
+                model.Miles = Value * 0.00018939;
+                model.Foot = Value;
+                model.Yards = Value * 0.33333;
+                model.Inches = Value * 12;
 
                 return model;
             }
@@ -138,18 +111,15 @@ namespace ADHFormCalAPI.Calculator.Converters
             //yi
             if (model.YardSymbol == OperationUnit)
             {
-                Kilometers = Value / 1093.6;
-                Meters = Value / 1.0936;
-                Centimeters = Value / 0.010936;
-                Millimeters = Value / 0.0010936;
+                model.Kilometers = Value / 1093.6;
+                model.Meters = Value / 1.0936;
+                model.Centimeters = Value / 0.010936;
+                model.Millimeters = Value / 0.0010936;
 
-                Miles = Value * 0.00056818;
-                Foot = Value * 3;
-                Yards = Value;
-                Inches = Value * 36;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Miles = Value * 0.00056818;
+                model.Foot = Value * 3;
+                model.Yards = Value;
+                model.Inches = Value * 36;
 
                 return model;
             }
@@ -157,38 +127,19 @@ namespace ADHFormCalAPI.Calculator.Converters
             //in
             if (model.IncheSymbol == OperationUnit)
             {
-                Kilometers = Value / 39370;
-                Meters = Value / 39.370;
-                Centimeters = Value / 0.39370;
-                Millimeters = Value / 0.039370;
+                model.Kilometers = Value / 39370;
+                model.Meters = Value / 39.370;
+                model.Centimeters = Value / 0.39370;
+                model.Millimeters = Value / 0.039370;
 
-                Miles = Value * 0.000015783;
-                Foot = Value * 0.083333;
-                Yards = Value * 0.027778;
-                Inches = Value;
-
-                SetMetricValues(model, Kilometers, Meters, Centimeters, Millimeters);
-                SetImperialValues(model, Miles, Foot, Yards, Inches);
+                model.Miles = Value * 0.000015783;
+                model.Foot = Value * 0.083333;
+                model.Yards = Value * 0.027778;
+                model.Inches = Value;
 
                 return model;
             }
             return model;
-        }
-
-
-        private void SetMetricValues(LengthModel model, double kilometers, double metersc, double centimeters, double millimeters)
-        {
-            model.Kilometers = kilometers;
-            model.Meters = metersc;
-            model.Centimeters = centimeters;
-            model.Millimeters = millimeters;
-        }
-        private void SetImperialValues(LengthModel model, double miles, double foot, double yards, double inches)
-        {
-            model.Miles = miles;
-            model.Foot = foot;
-            model.Yards = yards;
-            model.Inches = inches;
         }
     }
 }

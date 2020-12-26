@@ -19,7 +19,7 @@
             get => _meters;
             set => _meters = value < 0 ? 0 : value;
         }
-        public string MeterSymbol => "m";
+        public char MeterSymbol => 'm';
         public double Centimeters
         {
             get => _centimeters;

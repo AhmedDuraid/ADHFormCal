@@ -16,19 +16,13 @@ namespace ADHFormCalAPI.Calculator.Converters
         public SpeedModel SpeedConverting()
         {
             SpeedModel model = new SpeedModel();
-            double KilometersPerHour;
-            double Knots;
-            double MilesPerHour;
 
             //kmph
             if (model.KilometersPerHourSymbol == OperationUnit)
             {
-                KilometersPerHour = Value;
-                Knots = Value / 1.852;
-                MilesPerHour = Value / 1.609;
-
-                SetWorldWideValues(model, KilometersPerHour, Knots);
-                SetUSValues(model, MilesPerHour);
+                model.KilometersPerHour = Value;
+                model.Knots = Value / 1.852;
+                model.MilesPerHour = Value / 1.609;
 
                 return model;
             }
@@ -36,12 +30,9 @@ namespace ADHFormCalAPI.Calculator.Converters
             //kn
             if (model.KnotsSymbol == OperationUnit)
             {
-                KilometersPerHour = Value * 1.852;
-                Knots = Value;
-                MilesPerHour = Value * 1.151;
-
-                SetWorldWideValues(model, KilometersPerHour, Knots);
-                SetUSValues(model, MilesPerHour);
+                model.KilometersPerHour = Value * 1.852;
+                model.Knots = Value;
+                model.MilesPerHour = Value * 1.151;
 
                 return model;
             }
@@ -49,24 +40,12 @@ namespace ADHFormCalAPI.Calculator.Converters
             //mph
             if (model.MilesPerHourSymbol == OperationUnit)
             {
-                KilometersPerHour = Value * 1.609;
-                Knots = Value / 1.151;
-                MilesPerHour = Value;
-
-                SetWorldWideValues(model, KilometersPerHour, Knots);
-                SetUSValues(model, MilesPerHour);
+                model.KilometersPerHour = Value * 1.609;
+                model.Knots = Value / 1.151;
+                model.MilesPerHour = Value;
             }
 
             return null;
-        }
-        private void SetWorldWideValues(SpeedModel model, double kilometersPerHour, double knots)
-        {
-            model.KilometersPerHour = kilometersPerHour;
-            model.Knots = knots;
-        }
-        private void SetUSValues(SpeedModel model, double milesPerHour)
-        {
-            model.MilesPerHour = milesPerHour;
         }
     }
 }

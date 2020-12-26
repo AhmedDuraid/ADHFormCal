@@ -16,17 +16,13 @@ namespace ADHFormCalAPI.Calculator.Converters
         public PressureModel PressureConverting()
         {
             PressureModel model = new PressureModel();
-            double Pascal;
-            double Bar;
-            double Torr;
+
             // pa
             if (model.PascalsSymbol == OperationUnit)
             {
-                Pascal = Value;
-                Bar = Value / 100000;
-                Torr = Value * 0.0075006;
-
-                SetValues(model, Pascal, Bar, Torr);
+                model.Pascals = Value;
+                model.Bar = Value / 100000;
+                model.Torrs = Value * 0.0075006;
 
                 return model;
             }
@@ -34,11 +30,9 @@ namespace ADHFormCalAPI.Calculator.Converters
             // bar
             if (model.BarSymbol == OperationUnit)
             {
-                Pascal = Value / 0.000010000;
-                Bar = Value;
-                Torr = Value * 750.06;
-
-                SetValues(model, Pascal, Bar, Torr);
+                model.Pascals = Value / 0.000010000;
+                model.Bar = Value;
+                model.Torrs = Value * 750.06;
 
                 return model;
             }
@@ -46,22 +40,13 @@ namespace ADHFormCalAPI.Calculator.Converters
             //torr
             if (model.TorrsSymbol == OperationUnit)
             {
-                Pascal = Value / 0.0075006;
-                Bar = Value / 750.06;
-                Torr = Value;
-
-                SetValues(model, Pascal, Bar, Torr);
+                model.Pascals = Value / 0.0075006;
+                model.Bar = Value / 750.06;
+                model.Torrs = Value;
 
                 return model;
             }
             return null;
-        }
-
-        private void SetValues(PressureModel model, double pascals, double bar, double torrs)
-        {
-            model.Pascals = pascals;
-            model.Bar = bar;
-            model.Torrs = torrs;
         }
     }
 }

@@ -18,54 +18,38 @@ namespace ADHFormCalAPI.Calculator.Converters
         public TemperatureModel TemperatureConverting()
         {
             TemperatureModel model = new TemperatureModel();
-            double TempC;
-            double TempF;
-            double TempK;
 
             // C
-            if (OperationUnit == model.SymbolC.ToString())
+            if (OperationUnit == model.CSymbol.ToString())
             {
-                TempC = Value;
-                TempF = (Value * FahrenheitCelsiusConst) + model.FreezingPointF;
-                TempK = Value + KelvinConst;
-
-                SetTempreatureValues(model, TempC, TempF, TempK);
+                model.TemperatureC = Value;
+                model.TemperatureF = (Value * FahrenheitCelsiusConst) + model.FreezingPointF;
+                model.TemperatureK = Value + KelvinConst;
 
                 return model;
             }
 
             //F
-            if (OperationUnit == model.SymbolC.ToString())
+            if (OperationUnit == model.CSymbol.ToString())
             {
-                TempC = (Value - model.FreezingPointF) / FahrenheitCelsiusConst;
-                TempF = Value;
-                TempK = (Value - model.FreezingPointF) / KelvinConst;
-
-                SetTempreatureValues(model, TempC, TempF, TempK);
+                model.TemperatureC = (Value - model.FreezingPointF) / FahrenheitCelsiusConst;
+                model.TemperatureF = Value;
+                model.TemperatureK = (Value - model.FreezingPointF) / KelvinConst;
 
                 return model;
             }
 
             //K
-            if (OperationUnit == model.SymbolC.ToString())
+            if (OperationUnit == model.CSymbol.ToString())
             {
 
-                TempC = Value - KelvinConst;
-                TempF = ((Value - KelvinConst) * model.FreezingPointF) + model.FreezingPointF;
-                TempK = Value;
-
-                SetTempreatureValues(model, TempC, TempF, TempK);
+                model.TemperatureC = Value - KelvinConst;
+                model.TemperatureF = ((Value - KelvinConst) * model.FreezingPointF) + model.FreezingPointF;
+                model.TemperatureK = Value;
 
                 return model;
             }
             return null;
-        }
-
-        private void SetTempreatureValues(TemperatureModel model, double c, double f, double k)
-        {
-            model.TemperatureC = c;
-            model.TemperatureF = f;
-            model.TemperatureK = k;
         }
     }
 }
