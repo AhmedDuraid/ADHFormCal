@@ -1,5 +1,5 @@
 ﻿using ADHFormCalAPI.Models;
-using ADHFormCalAPI.Models.Math;
+using ADHFormCalAPI.Models.MathFormulas;
 using System;
 using System.Collections.Generic;
 
@@ -52,13 +52,49 @@ namespace ADHFormCalAPI.Calculator.MathcClculation
 
             return SetResult(slope, MathFormula.Slope, "Slope");
         }
+        public CalculationResultModel SlopeIntercept(List<int> point, int slope)
+        {
+            // y= slope*x+y
+            int x = point[0];
+            int y = point[1];
+            int Slope = (slope * x) + y;
 
+            return SetResult(Slope, MathFormula.SlopeIntercept, "Slope Intercept");
+        }
+        public CalculationResultModel MidPoint(List<int> pointOne, List<int> pointTwo)
+        {
+            // (x₁+x₂) / 2, (y₁+y₂) / 2
+            int x1 = pointOne[0];
+            int x2 = pointTwo[0];
+            int y1 = pointOne[1];
+            int y2 = pointTwo[1];
+            List<int> MidPoint = new List<int>
+            {
+                (x1+x2)/2,
+                (y1+y2)/2
+            };
+
+            return SetResult(MidPoint, MathFormula.Midpoint, "Mid point");
+        }
         private CalculationResultModel SetResult(double value, string formula, string WhatCalculate, string unit = null, string message = null)
         {
             CalculationResultModel calculationResult = new CalculationResultModel
             {
                 Formula = formula,
                 Value = value,
+                Unit = unit,
+                WhatCalculate = WhatCalculate,
+                Message = message
+            };
+
+            return calculationResult;
+        }
+        private CalculationResultModel SetResult(List<int> value, string formula, string WhatCalculate, string unit = null, string message = null)
+        {
+            CalculationResultModel calculationResult = new CalculationResultModel
+            {
+                Formula = formula,
+                ListOfValues = value,
                 Unit = unit,
                 WhatCalculate = WhatCalculate,
                 Message = message
