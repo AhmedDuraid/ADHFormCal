@@ -5,27 +5,15 @@
         private double _kilometersPerHour, _milesPerHour, _knots;
 
         //worldwide
-        public double KilometersPerHour
-        {
-            get => _kilometersPerHour;
-            set => _kilometersPerHour = value < 0 ? 0 : value;
-        }
+        public double KilometersPerHour { get; set; }
         public string KilometersPerHourSymbol => "kmph";
         public string KilometersPerHourUnit => "km/h";
 
-        public double Knots
-        {
-            get => _knots;
-            set => _knots = value < 0 ? 0 : value;
-        }
+        public double Knots { get; set; }
         public string KnotsSymbol => "kn";
 
         //US
-        public double MilesPerHour
-        {
-            get => _milesPerHour;
-            set => _milesPerHour = value < 0 ? 0 : value;
-        }
+        public double MilesPerHour { get; set; }
         public string MilesPerHourSymbol => "mph";
     }
 }

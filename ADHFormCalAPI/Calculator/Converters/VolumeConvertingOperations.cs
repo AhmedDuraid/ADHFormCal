@@ -1,194 +1,195 @@
-﻿using ADHFormCalAPI.Models.Converters;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Models.Converters;
 
 namespace ADHFormCalAPI.Calculator.Converters
 {
-    public class VolumeConvertingOperations
+    public class VolumeConvertingOperations : IVolumeConvertingOperations
     {
-        private readonly string _operationUnit;
-        private readonly double _value;
+        private readonly ICalculationValidation _calculationValidation;
 
-
-        public VolumeConvertingOperations(string operationUnit, double value)
+        public VolumeConvertingOperations(ICalculationValidation calculationValidation)
         {
-            _operationUnit = operationUnit;
-            _value = value;
+            _calculationValidation = calculationValidation;
         }
-
-        public VolumeModel VolumeConverting()
+        public VolumeModel FromLiter(double literValue)
         {
-            VolumeModel model = new VolumeModel();
+            _calculationValidation.LessThanZero(literValue);
 
-            //L
-            if (_operationUnit == model.LiterSymbol.ToString())
+            return new VolumeModel
             {
-                model.Liter = _value;
-                model.Centiliter = _value / 0.01;
-                model.Milliliter = _value / 0.001;
-                model.CubicMeter = _value / 1000;
-                model.USGallon = _value * 0.26417;
-                model.USTablespoon = _value * 67.628;
-                model.USTeaspoon = _value * 202.88;
-                model.UKGallon = _value * 0.21997;
-                model.UKTablespoon = _value * 70.390;
-                model.UKTeaspoon = _value * 281.56;
+                Liter = literValue,
+                Centiliter = literValue / 0.01,
+                Milliliter = literValue / 0.001,
+                CubicMeter = literValue / 1000,
+                USGallon = literValue * 0.26417,
+                USTablespoon = literValue * 67.628,
+                USTeaspoon = literValue * 202.88,
+                UKGallon = literValue * 0.21997,
+                UKTablespoon = literValue * 70.390,
+                UKTeaspoon = literValue * 281.56
+            };
+        }
+        public VolumeModel FromCentiliter(double centiliterValue)
+        {
+            _calculationValidation.LessThanZero(centiliterValue);
 
-                return model;
-            }
-
-            //cl
-            if (_operationUnit == model.CentiliterSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 100;
-                model.Centiliter = _value;
-                model.Milliliter = _value / 0.10000;
-                model.CubicMeter = _value / 100000;
-                model.USGallon = _value * 0.0026417;
-                model.USTablespoon = _value * 0.67628;
-                model.USTeaspoon = _value * 2.0288;
-                model.UKGallon = _value * 0.0021997;
-                model.UKTablespoon = _value * 0.70390;
-                model.UKTeaspoon = _value * 2.8156;
+                Liter = centiliterValue / 100,
+                Centiliter = centiliterValue,
+                Milliliter = centiliterValue / 0.10000,
+                CubicMeter = centiliterValue / 100000,
+                USGallon = centiliterValue * 0.0026417,
+                USTablespoon = centiliterValue * 0.67628,
+                USTeaspoon = centiliterValue * 2.0288,
+                UKGallon = centiliterValue * 0.0021997,
+                UKTablespoon = centiliterValue * 0.70390,
+                UKTeaspoon = centiliterValue * 2.8156
+            };
+        }
+        public VolumeModel FromMilliliter(double milliliterValue)
+        {
+            _calculationValidation.LessThanZero(milliliterValue);
 
-                return model;
-            }
-
-            //ml
-            if (_operationUnit == model.MilliliterSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 1000;
-                model.Centiliter = _value / 10;
-                model.Milliliter = _value;
-                model.CubicMeter = _value / 1000000;
-                model.USGallon = _value * 0.00022702;
-                model.USTablespoon = _value * 0.067628;
-                model.USTeaspoon = _value * 0.20288;
-                model.UKGallon = _value * 0.00021997;
-                model.UKTablespoon = _value * 0.070390;
-                model.UKTeaspoon = _value * 0.28156;
+                Liter = milliliterValue / 1000,
+                Centiliter = milliliterValue / 10,
+                Milliliter = milliliterValue,
+                CubicMeter = milliliterValue / 1000000,
+                USGallon = milliliterValue * 0.00022702,
+                USTablespoon = milliliterValue * 0.067628,
+                USTeaspoon = milliliterValue * 0.20288,
+                UKGallon = milliliterValue * 0.00021997,
+                UKTablespoon = milliliterValue * 0.070390,
+                UKTeaspoon = milliliterValue * 0.28156
+            };
+        }
+        public VolumeModel FromCubicMeter(double cubicMeterValue)
+        {
+            _calculationValidation.LessThanZero(cubicMeterValue);
 
-                return model;
-            }
-
-            //m^3
-            if (_operationUnit == model.CubicMeterSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 0.001;
-                model.Centiliter = _value / 0.00001;
-                model.Milliliter = _value / 0.000001;
-                model.CubicMeter = _value;
-                model.USGallon = _value * 264.17;
-                model.USTablespoon = _value * 67628;
-                model.USTeaspoon = _value * 202880;
-                model.UKGallon = _value * 219.97;
-                model.UKTablespoon = _value * 70390;
-                model.UKTeaspoon = _value * 281560;
+                Liter = cubicMeterValue / 0.001,
+                Centiliter = cubicMeterValue / 0.00001,
+                Milliliter = cubicMeterValue / 0.000001,
+                CubicMeter = cubicMeterValue,
+                USGallon = cubicMeterValue * 264.17,
+                USTablespoon = cubicMeterValue * 67628,
+                USTeaspoon = cubicMeterValue * 202880,
+                UKGallon = cubicMeterValue * 219.97,
+                UKTablespoon = cubicMeterValue * 70390,
+                UKTeaspoon = cubicMeterValue * 281560
+            };
+        }
+        public VolumeModel FromUSGallon(double uSGallonValue)
+        {
+            _calculationValidation.LessThanZero(uSGallonValue);
 
-                return model;
-            }
-
-            //US gal
-            if (_operationUnit == model.USGallonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 0.26417;
-                model.Centiliter = _value / 0.0026417;
-                model.Milliliter = _value / 0.00026417;
-                model.CubicMeter = _value / 264.17;
-                model.USGallon = _value;
-                model.USTablespoon = _value * 256.00;
-                model.USTeaspoon = _value * 768.00;
-                model.UKGallon = _value * 0.83267;
-                model.UKTablespoon = _value * 266.46;
-                model.UKTeaspoon = _value * 1065.8;
+                Liter = uSGallonValue / 0.26417,
+                Centiliter = uSGallonValue / 0.0026417,
+                Milliliter = uSGallonValue / 0.00026417,
+                CubicMeter = uSGallonValue / 264.17,
+                USGallon = uSGallonValue,
+                USTablespoon = uSGallonValue * 256.00,
+                USTeaspoon = uSGallonValue * 768.00,
+                UKGallon = uSGallonValue * 0.83267,
+                UKTablespoon = uSGallonValue * 266.46,
+                UKTeaspoon = uSGallonValue * 1065.8
+            };
+        }
+        public VolumeModel FromUSTablespoon(double uSTablespoonValue)
+        {
+            _calculationValidation.LessThanZero(uSTablespoonValue);
 
-                return model;
-            }
-
-            //US tblsp
-            if (_operationUnit == model.USTablespoonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 67.628;
-                model.Centiliter = _value / 0.67628;
-                model.Milliliter = _value / 0.067628;
-                model.CubicMeter = _value / 67628;
-                model.USGallon = _value * 0.0039062;
-                model.USTablespoon = _value;
-                model.USTeaspoon = _value * 3;
-                model.UKGallon = _value * 0.0032526;
-                model.UKTablespoon = _value * 1.0408;
-                model.UKTeaspoon = _value * 4.1634;
+                Liter = uSTablespoonValue / 67.628,
+                Centiliter = uSTablespoonValue / 0.67628,
+                Milliliter = uSTablespoonValue / 0.067628,
+                CubicMeter = uSTablespoonValue / 67628,
+                USGallon = uSTablespoonValue * 0.0039062,
+                USTablespoon = uSTablespoonValue,
+                USTeaspoon = uSTablespoonValue * 3,
+                UKGallon = uSTablespoonValue * 0.0032526,
+                UKTablespoon = uSTablespoonValue * 1.0408,
+                UKTeaspoon = uSTablespoonValue * 4.1634
+            };
+        }
+        public VolumeModel FromUSTeaspoon(double uSTeaspoonValue)
+        {
+            _calculationValidation.LessThanZero(uSTeaspoonValue);
 
-                return model;
-            }
-
-            //US tsp
-            if (_operationUnit == model.USTeaspoonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 202.88;
-                model.Centiliter = _value / 2.0288;
-                model.Milliliter = _value / 0.20288;
-                model.CubicMeter = _value / 202880;
-                model.USGallon = _value * 0.0013021;
-                model.USTablespoon = _value * 0.33333;
-                model.USTeaspoon = _value;
-                model.UKGallon = _value * 0.0010842;
-                model.UKTablespoon = _value * 0.34695;
-                model.UKTeaspoon = _value * 1.3878;
+                Liter = uSTeaspoonValue / 202.88,
+                Centiliter = uSTeaspoonValue / 2.0288,
+                Milliliter = uSTeaspoonValue / 0.20288,
+                CubicMeter = uSTeaspoonValue / 202880,
+                USGallon = uSTeaspoonValue * 0.0013021,
+                USTablespoon = uSTeaspoonValue * 0.33333,
+                USTeaspoon = uSTeaspoonValue,
+                UKGallon = uSTeaspoonValue * 0.0010842,
+                UKTablespoon = uSTeaspoonValue * 0.34695,
+                UKTeaspoon = uSTeaspoonValue * 1.3878
+            };
+        }
+        public VolumeModel FromUKGallon(double uKGallonValue)
+        {
+            _calculationValidation.LessThanZero(uKGallonValue);
 
-                return model;
-            }
-
-            //UK gal
-            if (_operationUnit == model.UKGallonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 0.21997;
-                model.Centiliter = _value / 0.0021997;
-                model.Milliliter = _value / 0.00021997;
-                model.CubicMeter = _value / 219.97;
-                model.USGallon = _value * 1.2009;
-                model.USTablespoon = _value * 307.44;
-                model.USTeaspoon = _value * 922.33;
-                model.UKGallon = _value;
-                model.UKTablespoon = _value * 320;
-                model.UKTeaspoon = _value * 1280.0;
+                Liter = uKGallonValue / 0.21997,
+                Centiliter = uKGallonValue / 0.0021997,
+                Milliliter = uKGallonValue / 0.00021997,
+                CubicMeter = uKGallonValue / 219.97,
+                USGallon = uKGallonValue * 1.2009,
+                USTablespoon = uKGallonValue * 307.44,
+                USTeaspoon = uKGallonValue * 922.33,
+                UKGallon = uKGallonValue,
+                UKTablespoon = uKGallonValue * 320,
+                UKTeaspoon = uKGallonValue * 1280.0
+            };
+        }
+        public VolumeModel FromUKTablespoon(double uKTablespoonValue)
+        {
+            _calculationValidation.LessThanZero(uKTablespoonValue);
 
-                return model;
-            }
-
-            // UK tblsp
-            if (_operationUnit == model.UKTablespoonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 70.390;
-                model.Centiliter = _value / 0.70390;
-                model.Milliliter = _value / 0.070390;
-                model.CubicMeter = _value / 70390;
-                model.USGallon = _value * 0.0037530;
-                model.USTablespoon = _value * 0.96076;
-                model.USTeaspoon = _value * 2.8823;
-                model.UKGallon = _value * 0.0031250;
-                model.UKTablespoon = _value;
-                model.UKTeaspoon = _value * 4;
+                Liter = uKTablespoonValue / 70.390,
+                Centiliter = uKTablespoonValue / 0.70390,
+                Milliliter = uKTablespoonValue / 0.070390,
+                CubicMeter = uKTablespoonValue / 70390,
+                USGallon = uKTablespoonValue * 0.0037530,
+                USTablespoon = uKTablespoonValue * 0.96076,
+                USTeaspoon = uKTablespoonValue * 2.8823,
+                UKGallon = uKTablespoonValue * 0.0031250,
+                UKTablespoon = uKTablespoonValue,
+                UKTeaspoon = uKTablespoonValue * 4
+            };
+        }
+        public VolumeModel FromUKTeaspoon(double uKTeaspoonValue)
+        {
+            _calculationValidation.LessThanZero(uKTeaspoonValue);
 
-                return model;
-            }
-
-            //UK tsp
-            if (_operationUnit == model.UKTeaspoonSymbol)
+            return new VolumeModel
             {
-                model.Liter = _value / 281.56;
-                model.Centiliter = _value / 2.8156;
-                model.Milliliter = _value / 0.28156;
-                model.CubicMeter = _value / 281560;
-                model.USGallon = _value * 0.00093824;
-                model.USTablespoon = _value * 0.24019;
-                model.USTeaspoon = _value * 0.72057;
-                model.UKGallon = _value * 0.00078125;
-                model.UKTablespoon = _value * 0.25000;
-                model.UKTeaspoon = _value;
-
-                return model;
-            }
-
-            return null;
+                Liter = uKTeaspoonValue / 281.56,
+                Centiliter = uKTeaspoonValue / 2.8156,
+                Milliliter = uKTeaspoonValue / 0.28156,
+                CubicMeter = uKTeaspoonValue / 281560,
+                USGallon = uKTeaspoonValue * 0.00093824,
+                USTablespoon = uKTeaspoonValue * 0.24019,
+                USTeaspoon = uKTeaspoonValue * 0.72057,
+                UKGallon = uKTeaspoonValue * 0.00078125,
+                UKTablespoon = uKTeaspoonValue * 0.25000,
+                UKTeaspoon = uKTeaspoonValue
+            };
         }
     }
 }

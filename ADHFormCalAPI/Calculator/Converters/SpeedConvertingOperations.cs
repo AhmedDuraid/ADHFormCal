@@ -1,51 +1,50 @@
-﻿using ADHFormCalAPI.Models.Converters;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Models.Converters;
 
 namespace ADHFormCalAPI.Calculator.Converters
 {
-    public class SpeedConvertingOperations
+    public class SpeedConvertingOperations : ISpeedConvertingOperations
     {
-        private readonly string _operationUnit;
-        private readonly double _value;
 
-        public SpeedConvertingOperations(string operationUnit, double value)
+        private readonly ICalculationValidation _calculationValidation;
+
+        public SpeedConvertingOperations(ICalculationValidation calculationValidation)
         {
-            _operationUnit = operationUnit;
-            _value = value;
+            _calculationValidation = calculationValidation;
         }
 
-        public SpeedModel SpeedConverting()
+        public SpeedModel FromKilometersPerHour(double KMvalue)
         {
-            SpeedModel model = new SpeedModel();
+            _calculationValidation.LessThanZero(KMvalue);
 
-            //kmph
-            if (model.KilometersPerHourSymbol == _operationUnit)
+            return new SpeedModel
             {
-                model.KilometersPerHour = _value;
-                model.Knots = _value / 1.852;
-                model.MilesPerHour = _value / 1.609;
+                KilometersPerHour = KMvalue,
+                Knots = KMvalue / 1.852,
+                MilesPerHour = KMvalue / 1.609
+            };
+        }
+        public SpeedModel FromKnots(double KnotsValue)
+        {
+            _calculationValidation.LessThanZero(KnotsValue);
 
-                return model;
-            }
-
-            //kn
-            if (model.KnotsSymbol == _operationUnit)
+            return new SpeedModel
             {
-                model.KilometersPerHour = _value * 1.852;
-                model.Knots = _value;
-                model.MilesPerHour = _value * 1.151;
+                KilometersPerHour = KnotsValue * 1.852,
+                Knots = KnotsValue,
+                MilesPerHour = KnotsValue * 1.151
+            };
+        }
+        public SpeedModel FromMile(double mileValue)
+        {
+            _calculationValidation.LessThanZero(mileValue);
 
-                return model;
-            }
-
-            //mph
-            if (model.MilesPerHourSymbol == _operationUnit)
+            return new SpeedModel
             {
-                model.KilometersPerHour = _value * 1.609;
-                model.Knots = _value / 1.151;
-                model.MilesPerHour = _value;
-            }
-
-            return null;
+                KilometersPerHour = mileValue * 1.609,
+                Knots = mileValue / 1.151,
+                MilesPerHour = mileValue
+            };
         }
     }
 }

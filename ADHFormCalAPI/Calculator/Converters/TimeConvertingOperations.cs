@@ -1,101 +1,101 @@
-﻿using ADHFormCalAPI.Models.Converters;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Models.Converters;
 
 namespace ADHFormCalAPI.Calculator.Converters
 {
-    public class TimeConvertingOperations
+    public class TimeConvertingOperations : ITimeConvertingOperations
     {
-        private readonly string _operationUnit;
-        private readonly double _value;
+        private readonly ICalculationValidation _calculationValidation;
 
-
-        public TimeConvertingOperations(string operationUnit, double value)
+        public TimeConvertingOperations(ICalculationValidation calculationValidation)
         {
-            _operationUnit = operationUnit;
-            _value = value;
+
+            _calculationValidation = calculationValidation;
         }
 
-        public TimeModel TimeConverting()
+        public TimeModel FromSecond(double secondValue)
         {
-            TimeModel model = new TimeModel();
+            _calculationValidation.LessThanZero(secondValue);
 
-            //s
-            if (model.SecondSymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value;
-                model.Minute = _value / 60;
-                model.Hour = _value / 3600;
-                model.Day = _value / 86400;
-                model.Week = _value / 604800;
-                model.Month = _value / 2628000;
+                Second = secondValue,
+                Minute = secondValue / 60,
+                Hour = secondValue / 3600,
+                Day = secondValue / 86400,
+                Week = secondValue / 604800,
+                Month = secondValue / 2628000
+            };
+        }
+        public TimeModel FromMinute(double minuteValue)
+        {
+            _calculationValidation.LessThanZero(minuteValue);
 
-                return model;
-            }
-
-            //m
-            if (model.MinuteSymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value * 60;
-                model.Minute = _value;
-                model.Hour = _value / 60;
-                model.Day = _value / 1440;
-                model.Week = _value / 10080;
-                model.Month = _value / 43800;
+                Second = minuteValue * 60,
+                Minute = minuteValue,
+                Hour = minuteValue / 60,
+                Day = minuteValue / 1440,
+                Week = minuteValue / 10080,
+                Month = minuteValue / 43800
+            };
+        }
+        public TimeModel FromHour(double hourTime)
+        {
+            _calculationValidation.LessThanZero(hourTime);
 
-                return model;
-            }
-
-            //h
-            if (model.HourSymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value * 3600;
-                model.Minute = _value * 60;
-                model.Hour = _value;
-                model.Day = _value / 24;
-                model.Week = _value / 168;
-                model.Month = _value / 730;
+                Second = hourTime * 3600,
+                Minute = hourTime * 60,
+                Hour = hourTime,
+                Day = hourTime / 24,
+                Week = hourTime / 168,
+                Month = hourTime / 730
+            };
+        }
+        public TimeModel FromDay(double dayValue)
+        {
+            _calculationValidation.LessThanZero(dayValue);
 
-                return model;
-            }
-
-            //d
-            if (model.DaySymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value * 86400;
-                model.Minute = _value * 1440;
-                model.Hour = _value * 24;
-                model.Day = _value;
-                model.Week = _value / 7;
-                model.Month = _value / 30.417;
+                Second = dayValue * 86400,
+                Minute = dayValue * 1440,
+                Hour = dayValue * 24,
+                Day = dayValue,
+                Week = dayValue / 7,
+                Month = dayValue / 30.417
+            };
+        }
+        public TimeModel FromWeek(double weekValue)
+        {
+            _calculationValidation.LessThanZero(weekValue);
 
-                return model;
-            }
-
-            //w
-            if (model.WeekSymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value * 604800;
-                model.Minute = _value * 10080;
-                model.Hour = _value * 168;
-                model.Day = _value * 7;
-                model.Week = _value;
-                model.Month = _value / 4.345;
+                Second = weekValue * 604800,
+                Minute = weekValue * 10080,
+                Hour = weekValue * 168,
+                Day = weekValue * 7,
+                Week = weekValue,
+                Month = weekValue / 4.345
+            };
+        }
+        public TimeModel FromMonth(double monthValue)
+        {
+            _calculationValidation.LessThanZero(monthValue);
 
-                return model;
-            }
-
-            //M
-            if (model.MonthSymbol.ToString() == _operationUnit)
+            return new TimeModel
             {
-                model.Second = _value * 2628000;
-                model.Minute = _value * 43800;
-                model.Hour = _value * 730;
-                model.Day = _value * 30.417;
-                model.Week = _value * 4.345;
-                model.Month = _value;
-
-                return model;
-            }
-            return null;
+                Second = monthValue * 2628000,
+                Minute = monthValue * 43800,
+                Hour = monthValue * 730,
+                Day = monthValue * 30.417,
+                Week = monthValue * 4.345,
+                Month = monthValue
+            };
         }
     }
 }

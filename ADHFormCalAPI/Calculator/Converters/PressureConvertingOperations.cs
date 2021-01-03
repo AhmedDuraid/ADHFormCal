@@ -1,52 +1,47 @@
-﻿using ADHFormCalAPI.Models.Converters;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Models.Converters;
 
 namespace ADHFormCalAPI.Calculator.Converters
 {
-    public class PressureConvertingOperations
+    public class PressureConvertingOperations : IPressureConvertingOperations
     {
-        private readonly string _operationUnit;
-        private readonly double _value;
-
-        public PressureConvertingOperations(string operationUnit, double value)
+        private readonly ICalculationValidation _calculationValidation;
+        public PressureConvertingOperations(ICalculationValidation calculationValidation)
         {
-            _operationUnit = operationUnit;
-            _value = value;
+            _calculationValidation = calculationValidation;
         }
 
-        public PressureModel PressureConverting()
+        public PressureModel FromPascals(double PascalsValue)
         {
-            PressureModel model = new PressureModel();
+            _calculationValidation.LessThanZero(PascalsValue);
 
-            // pa
-            if (model.PascalsSymbol == _operationUnit)
+            return new PressureModel
             {
-                model.Pascals = _value;
-                model.Bar = _value / 100000;
-                model.Torrs = _value * 0.0075006;
+                Pascals = PascalsValue,
+                Bar = PascalsValue / 100000,
+                Torrs = PascalsValue * 0.0075006
+            };
+        }
+        public PressureModel FromBar(double BarValue)
+        {
+            _calculationValidation.LessThanZero(BarValue);
 
-                return model;
-            }
-
-            // bar
-            if (model.BarSymbol == _operationUnit)
+            return new PressureModel
             {
-                model.Pascals = _value / 0.000010000;
-                model.Bar = _value;
-                model.Torrs = _value * 750.06;
-
-                return model;
-            }
-
-            //torr
-            if (model.TorrsSymbol == _operationUnit)
+                Pascals = BarValue / 0.000010000,
+                Bar = BarValue,
+                Torrs = BarValue * 750.06,
+            };
+        }
+        public PressureModel FromTorr(double TorrValue)
+        {
+            _calculationValidation.LessThanZero(TorrValue);
+            return new PressureModel
             {
-                model.Pascals = _value / 0.0075006;
-                model.Bar = _value / 750.06;
-                model.Torrs = _value;
-
-                return model;
-            }
-            return null;
+                Pascals = TorrValue / 0.0075006,
+                Bar = TorrValue / 750.06,
+                Torrs = TorrValue
+            };
         }
     }
 }

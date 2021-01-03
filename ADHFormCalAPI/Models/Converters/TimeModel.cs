@@ -5,43 +5,17 @@
         private double _second, _minute, _hour, _day, _week, _month;
 
         // time values can be less than 0 
-        public double Second
-        {
-            get => _second;
-            set => _second = value < 0 ? 0 : value;
-        }
+        public double Second { get; set; }
         public char SecondSymbol => 's';
-        public double Minute
-        {
-            get => _minute;
-            set => _minute = value < 0 ? 0 : value;
-        }
+        public double Minute { get; set; }
         public char MinuteSymbol => 'm';
-
-        public double Hour
-        {
-            get => _hour;
-            set => _hour = value < 0 ? 0 : value;
-        }
+        public double Hour { get; set; }
         public char HourSymbol => 'h';
-        public double Day
-        {
-            get => _day;
-            set => _day = value < 0 ? 0 : value;
-        }
-
+        public double Day { get; set; }
         public char DaySymbol => 'd';
-        public double Week
-        {
-            get => _week;
-            set => _week = value < 0 ? 0 : value;
-        }
+        public double Week { get; set; }
         public char WeekSymbol => 'w';
-        public double Month
-        {
-            get => _month;
-            set => _month = value < 0 ? 0 : value;
-        }
+        public double Month { get; set; }
         public char MonthSymbol => 'm';
     }
 }

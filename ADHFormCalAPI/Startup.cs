@@ -1,3 +1,5 @@
+using ADHFormCalAPI.Calculator.Converters;
+using ADHFormCalAPI.ErrorHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,9 +22,16 @@ namespace ADHFormCalAPI
         {
             services.AddControllers();
 
+            services.AddTransient<ICalculationValidation, CalculationValidation>();
+            services.AddTransient<ILengthConvertingOperations, LengthConvertingOperations>();
+            services.AddTransient<IPressureConvertingOperations, PressureConvertingOperations>();
+            services.AddTransient<ISpeedConvertingOperations, SpeedConvertingOperations>();
+            services.AddTransient<ITemperatureConvertingOperations, TemperatureConvertingOperations>();
+            services.AddTransient<ITimeConvertingOperations, TimeConvertingOperations>();
+            services.AddTransient<IVolumeConvertingOperations, VolumeConvertingOperations>();
+
             services.AddSwaggerGen(setup =>
             {
-
                 setup.SwaggerDoc("v1",
                     new OpenApiInfo
                     {

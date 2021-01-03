@@ -6,70 +6,30 @@
             _uSTablespoon, _uSTeaspoon, _uKGallon, _uKTablespoon, _uKTeaspoon;
 
         //Metric
-        public double Liter
-        {
-            get => _liter;
-            set => _liter = value < 0 ? 0 : value;
-        }
+        public double Liter { get; set; }
         public char LiterSymbol => 'l';
-        public double Centiliter
-        {
-            get => _centiliter;
-            set => _centiliter = value < 0 ? 0 : value;
-        }
+        public double Centiliter { get; set; }
         public string CentiliterSymbol => "cl";
-        public double Milliliter
-        {
-            get => _milliliter;
-            set => _milliliter = value < 0 ? 0 : value;
-        }
+        public double Milliliter { get; set; }
         public string MilliliterSymbol => "ml";
-        public double CubicMeter
-        {
-            get => _cubicMeter;
-            set => _cubicMeter = value < 0 ? 0 : value;
-        }
+        public double CubicMeter { get; set; }
         public string CubicMeterSymbol => "m^3";
 
         // US
-        public double USGallon
-        {
-            get => _uSGallon;
-            set => _uSGallon = value < 0 ? 0 : value;
-        }
+        public double USGallon { get; set; }
         public string USGallonSymbol => "us gal";
-        public double USTablespoon
-        {
-            get => _uSTablespoon;
-            set => _uSTablespoon = value < 0 ? 0 : value;
-        }
+        public double USTablespoon { get; set; }
         public string USTablespoonSymbol => "us tblsp";
-        public double USTeaspoon
-        {
-            get => _uSTeaspoon;
-            set => _uSTeaspoon = value < 0 ? 0 : value;
-        }
+        public double USTeaspoon { get; set; }
         public string USTeaspoonSymbol => "us tsp";
 
 
         // UK
-        public double UKGallon
-        {
-            get => _uKGallon;
-            set => _uKGallon = value < 0 ? 0 : value;
-        }
+        public double UKGallon { get; set; }
         public string UKGallonSymbol => "uk gal";
-        public double UKTablespoon
-        {
-            get => _uKTablespoon;
-            set => _uKTablespoon = value < 0 ? 0 : value;
-        }
+        public double UKTablespoon { get; set; }
         public string UKTablespoonSymbol => "uk tblsp";
-        public double UKTeaspoon
-        {
-            get => _uKTeaspoon;
-            set => _uKTeaspoon = value < 0 ? 0 : value;
-        }
+        public double UKTeaspoon { get; set; }
         public string UKTeaspoonSymbol => "uk tsp";
     }
 }

@@ -1,145 +1,139 @@
-﻿using ADHFormCalAPI.Models.Converters;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Models.Converters;
 
 namespace ADHFormCalAPI.Calculator.Converters
 {
-    public class LengthConvertingOperations
+    public class LengthConvertingOperations : ILengthConvertingOperations
     {
-        private readonly string _operationUnit;
-        private readonly double _value;
-
-        public LengthConvertingOperations(string operationUnit, double value)
+        private readonly ICalculationValidation _validation;
+        public LengthConvertingOperations(ICalculationValidation validation)
         {
-            _operationUnit = operationUnit;
-            _value = value;
-
+            _validation = validation;
         }
 
-        public LengthModel LengthConverting()
+        public LengthModel FromKilometers(double KilometersValue)
         {
-            LengthModel model = new LengthModel();
+            _validation.LessThanZero(KilometersValue);
 
-            //km
-            if (model.KilometerSymbol == _operationUnit)
+            return new LengthModel
             {
-                model.Kilometers = _value;
-                model.Meters = _value / 0.001;
-                model.Centimeters = _value / 0.00001;
-                model.Millimeters = _value / 0.000001;
-                model.Miles = _value * 0.62137;
-                model.Foot = _value * 3280.8;
-                model.Yards = _value * 1093.6;
-                model.Inches = _value * 39370;
-
-                return model;
-            }
-
-            // m
-            if (model.MeterSymbol.ToString() == _operationUnit)
+                Kilometers = KilometersValue,
+                Meters = KilometersValue / 0.001,
+                Centimeters = KilometersValue / 0.00001,
+                Millimeters = KilometersValue / 0.000001,
+                Miles = KilometersValue * 0.62137,
+                Foot = KilometersValue * 3280.8,
+                Yards = KilometersValue * 1093.6,
+                Inches = KilometersValue * 39370,
+            };
+        }
+        public LengthModel FromMeters(double MetersValue)
+        {
+            _validation.LessThanZero(MetersValue);
+            return new LengthModel
             {
-                model.Kilometers = _value / 1000;
-                model.Meters = _value;
-                model.Centimeters = _value / 0.010;
-                model.Millimeters = _value / 0.001;
-                model.Miles = _value * 0.00062137;
-                model.Foot = _value * 3.2808;
-                model.Yards = _value * 1.0936;
-                model.Inches = _value * 39.37;
-
-                return model;
-            }
-
-            //cm
-            if (model.CentimeterSymbol == _operationUnit)
+                Kilometers = MetersValue / 1000,
+                Meters = MetersValue,
+                Centimeters = MetersValue / 0.010,
+                Millimeters = MetersValue / 0.001,
+                Miles = MetersValue * 0.00062137,
+                Foot = MetersValue * 3.2808,
+                Yards = MetersValue * 1.0936,
+                Inches = MetersValue * 39.37
+            };
+        }
+        public LengthModel FromCentimeters(double CentimetersValue)
+        {
+            _validation.LessThanZero(CentimetersValue);
+            return new LengthModel
             {
-                model.Kilometers = _value / 100000;
-                model.Meters = _value / 100;
-                model.Centimeters = _value;
-                model.Millimeters = _value / 0.1;
-                model.Miles = _value * 0.0000062137;
-                model.Foot = _value * 0.032808;
-                model.Yards = _value * 0.010936;
-                model.Inches = _value * 0.39370;
+                Kilometers = CentimetersValue / 100000,
+                Meters = CentimetersValue / 100,
+                Centimeters = CentimetersValue,
+                Millimeters = CentimetersValue / 0.1,
+                Miles = CentimetersValue * 0.0000062137,
+                Foot = CentimetersValue * 0.032808,
+                Yards = CentimetersValue * 0.010936,
+                Inches = CentimetersValue * 0.39370
+            };
+        }
+        public LengthModel FromMillimeter(double MillimeterValue)
+        {
+            _validation.LessThanZero(MillimeterValue);
 
-                return model;
-            }
-
-            //mm
-            if (model.MillimeterSymbol == _operationUnit)
+            return new LengthModel
             {
-                model.Kilometers = _value / 1000000;
-                model.Meters = _value / 1000;
-                model.Centimeters = _value / 10;
-                model.Millimeters = _value;
-                model.Miles = _value * 0.00000062137;
-                model.Foot = _value * 0.0032808;
-                model.Yards = _value * 0.0010936;
-                model.Inches = _value * 0.039370;
+                Kilometers = MillimeterValue / 1000000,
+                Meters = MillimeterValue / 1000,
+                Centimeters = MillimeterValue / 10,
+                Millimeters = MillimeterValue,
+                Miles = MillimeterValue * 0.00000062137,
+                Foot = MillimeterValue * 0.0032808,
+                Yards = MillimeterValue * 0.0010936,
+                Inches = MillimeterValue * 0.039370
+            };
+        }
+        public LengthModel FromMiles(double MilesValue)
+        {
+            _validation.LessThanZero(MilesValue);
 
-                return model;
-            }
-
-            //mi
-            if (model.MilesSymbol == _operationUnit)
+            return new LengthModel
             {
-                model.Kilometers = _value / 0.62137;
-                model.Meters = _value / 0.00062137;
-                model.Centimeters = _value / 0.0000062137;
-                model.Millimeters = _value / 0.00000062137;
-                model.Miles = _value;
-                model.Foot = _value * 5280.0;
-                model.Yards = _value * 1760.0;
-                model.Inches = _value * 6336;
+                Kilometers = MilesValue / 0.62137,
+                Meters = MilesValue / 0.00062137,
+                Centimeters = MilesValue / 0.0000062137,
+                Millimeters = MilesValue / 0.00000062137,
+                Miles = MilesValue,
+                Foot = MilesValue * 5280.0,
+                Yards = MilesValue * 1760.0,
+                Inches = MilesValue * 6336
+            };
+        }
+        public LengthModel FromFoot(double FootValue)
+        {
+            _validation.LessThanZero(FootValue);
 
-                return model;
-            }
-
-            //ft
-            if (model.FootSymbol == _operationUnit)
+            return new LengthModel
             {
-                model.Kilometers = _value / 3280.8;
-                model.Meters = _value / 3.2808;
-                model.Centimeters = _value / 0.032808;
-                model.Millimeters = _value / 0.0032808;
-                model.Miles = _value * 0.00018939;
-                model.Foot = _value;
-                model.Yards = _value * 0.33333;
-                model.Inches = _value * 12;
-
-                return model;
-            }
-
-            //yi
-            if (model.YardSymbol == _operationUnit)
+                Kilometers = FootValue / 3280.8,
+                Meters = FootValue / 3.2808,
+                Centimeters = FootValue / 0.032808,
+                Millimeters = FootValue / 0.0032808,
+                Miles = FootValue * 0.00018939,
+                Foot = FootValue,
+                Yards = FootValue * 0.33333,
+                Inches = FootValue * 12
+            };
+        }
+        public LengthModel FromYard(double YardValue)
+        {
+            _validation.LessThanZero(YardValue);
+            return new LengthModel
             {
-                model.Kilometers = _value / 1093.6;
-                model.Meters = _value / 1.0936;
-                model.Centimeters = _value / 0.010936;
-                model.Millimeters = _value / 0.0010936;
-
-                model.Miles = _value * 0.00056818;
-                model.Foot = _value * 3;
-                model.Yards = _value;
-                model.Inches = _value * 36;
-
-                return model;
-            }
-
-            //in
-            if (model.IncheSymbol == _operationUnit)
+                Kilometers = YardValue / 1093.6,
+                Meters = YardValue / 1.0936,
+                Centimeters = YardValue / 0.010936,
+                Millimeters = YardValue / 0.0010936,
+                Miles = YardValue * 0.00056818,
+                Foot = YardValue * 3,
+                Yards = YardValue,
+                Inches = YardValue * 36
+            };
+        }
+        public LengthModel FromInche(double IncheValue)
+        {
+            _validation.LessThanZero(IncheValue);
+            return new LengthModel
             {
-                model.Kilometers = _value / 39370;
-                model.Meters = _value / 39.370;
-                model.Centimeters = _value / 0.39370;
-                model.Millimeters = _value / 0.039370;
-
-                model.Miles = _value * 0.000015783;
-                model.Foot = _value * 0.083333;
-                model.Yards = _value * 0.027778;
-                model.Inches = _value;
-
-                return model;
-            }
-            return model;
+                Kilometers = IncheValue / 39370,
+                Meters = IncheValue / 39.370,
+                Centimeters = IncheValue / 0.39370,
+                Millimeters = IncheValue / 0.039370,
+                Miles = IncheValue * 0.000015783,
+                Foot = IncheValue * 0.083333,
+                Yards = IncheValue * 0.027778,
+                Inches = IncheValue
+            };
         }
     }
 }
