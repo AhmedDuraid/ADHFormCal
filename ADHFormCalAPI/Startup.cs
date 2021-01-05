@@ -1,5 +1,8 @@
 using ADHFormCalAPI.Calculator.Converters;
+using ADHFormCalAPI.Calculator.MathcClculation;
+using ADHFormCalAPI.Calculator.Pharmaceutical;
 using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,12 +26,16 @@ namespace ADHFormCalAPI
             services.AddControllers();
 
             services.AddTransient<ICalculationValidation, CalculationValidation>();
+            services.AddTransient<IResultCreation, ResultCreation>();
             services.AddTransient<ILengthConvertingOperations, LengthConvertingOperations>();
             services.AddTransient<IPressureConvertingOperations, PressureConvertingOperations>();
             services.AddTransient<ISpeedConvertingOperations, SpeedConvertingOperations>();
             services.AddTransient<ITemperatureConvertingOperations, TemperatureConvertingOperations>();
             services.AddTransient<ITimeConvertingOperations, TimeConvertingOperations>();
             services.AddTransient<IVolumeConvertingOperations, VolumeConvertingOperations>();
+            services.AddTransient<IWeightConvertingOperations, WeightConvertingOperations>();
+            services.AddTransient<IMathCalculator, MathCalculator>();
+            services.AddTransient<IPharmaceuticalCalculations, PharmaceuticalCalculations>();
 
             services.AddSwaggerGen(setup =>
             {
