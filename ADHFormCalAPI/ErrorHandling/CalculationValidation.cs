@@ -23,7 +23,7 @@ namespace ADHFormCalAPI.ErrorHandling
         {
             if (value == 0)
             {
-                throw new DivideByZeroException($"Can Not Divide Number To ZERO: {message}");
+                throw new DivideByZeroException($"Can Not Divided by ZERO: {message}");
             }
 
         }
@@ -46,6 +46,16 @@ namespace ADHFormCalAPI.ErrorHandling
             if (valueOne < 0 || valueTwo < 0)
             {
                 throw new ArgumentException($"{valueOneName} or {valueTwoName} can not be less than 0");
+            }
+        }
+        public void LessThanZero(List<double> listValues, List<string> valuesName)
+        {
+            for (int i = 0; i < listValues.Count; i++)
+            {
+                if (listValues[i] < 0)
+                {
+                    throw new ArgumentException($"{valuesName[i]} can not be less than 0");
+                }
             }
         }
 

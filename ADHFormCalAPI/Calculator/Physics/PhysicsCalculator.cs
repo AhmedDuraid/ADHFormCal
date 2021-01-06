@@ -1,288 +1,170 @@
-﻿using ADHFormCalAPI.Models;
+﻿using ADHFormCalAPI.ErrorHandling;
+using ADHFormCalAPI.Helpers;
+using ADHFormCalAPI.Models;
 using ADHFormCalAPI.Models.Physics;
-using System;
+using System.Collections.Generic;
 
 namespace ADHFormCalAPI.Calculator.Physics
 {
-    public class PhysicsCalculator
+    public class PhysicsCalculator : IPhysicsCalculator
     {
-        private string ErrorMessage;
-        public CalculationResultModel OhmCalculation(char request, double voltage, double current, double resistance)
+        private readonly ICalculationValidation _calculationValidation;
+        private readonly IResultCreation _resultCreation;
+        private readonly OhmLawModel ohmLaw;
+        private readonly SpecificHeatModel specificHeat;
+        private readonly AverageSpeedModel speedModel;
+        private readonly DensityModel densityModel;
+
+        public PhysicsCalculator(ICalculationValidation calculationValidation, IResultCreation resultCreation)
         {
-            OhmLawModel ohmLaw = new OhmLawModel();
-
-            if (voltage < 0 || current < 0 || resistance < 0)
-            {
-                ErrorMessage = "voltage, current and, resistance can not be less than 0";
-                return Error(ErrorMessage);
-            }
-
-            try
-            {
-                // V
-                if (request == ohmLaw.VoltageSymbol)
-                {
-                    double Voltage = current * resistance;
-
-                    return SetValues(Voltage, ohmLaw.OhmLawFormula, "voltage");
-                }
-
-                // I
-                if (request == ohmLaw.CurrentSymbol)
-                {
-                    double Current = voltage / resistance;
-
-                    return SetValues(Current, ohmLaw.OhmLawFormula, "current");
-                }
-
-                // R
-                if (request == ohmLaw.ResistanceSymbol)
-                {
-                    double Resistance = voltage / current;
-
-                    return SetValues(Resistance, ohmLaw.OhmLawFormula, "resistance");
-                }
-
-                ErrorMessage = $"request need to be {ohmLaw.CurrentSymbol}, {ohmLaw.ResistanceSymbol}, or {ohmLaw.VoltageSymbol}";
-
-                return Error(ErrorMessage);
-            }
-            catch (DivideByZeroException e)
-            {
-                ErrorMessage = e.Message;
-
-                return Error(ErrorMessage);
-            }
-
+            _calculationValidation = calculationValidation;
+            _resultCreation = resultCreation;
         }
-        public CalculationResultModel HeatCalculation(char request, double energy, double mass, double heat, double aVATemperature)
+
+        public CalculationResultModel Ohm_VoltageCalculation(double current, double resistance)
         {
-            SpecificHeatModel specificHeat = new SpecificHeatModel();
+            _calculationValidation.LessThanZero(current, resistance, "Current", "Resistance");
 
-            string Formula = specificHeat.EnergyFormula;
+            double Voltage = current * resistance;
 
-            if (mass < 0)
-            {
-                ErrorMessage = "Mass can't be less than 0";
-
-                return Error(ErrorMessage);
-            }
-
-            try
-            {
-                //Q
-                if (request == specificHeat.EnergySymbol)
-                {
-                    double Energy = mass * heat * aVATemperature;
-
-                    return SetValues(Energy, Formula, "Energy", specificHeat.EnergyUnit.ToString());
-                }
-
-                // M
-                if (request == specificHeat.MassSumbol)
-                {
-                    double Mass = energy / (heat * aVATemperature);
-
-                    return SetValues(Mass, Formula, "Mass", specificHeat.MassUnit);
-                }
-
-                // c
-                if (request == specificHeat.HeatCapacitySymbol)
-                {
-                    double HeatCapacity = energy / (mass * aVATemperature);
-
-                    return SetValues(HeatCapacity, Formula, "Specific Heat", specificHeat.HeatCapacityUnit);
-                }
-
-                // T
-                if (request == specificHeat.ChangeOfTemperatureSymbol)
-                {
-                    double ChangeOfTemperature = energy / (mass * heat);
-
-                    return SetValues(ChangeOfTemperature, Formula, "AVG Temperature", specificHeat.TemperatureUnit.ToString());
-                }
-
-                ErrorMessage = $"request need to be {specificHeat.ChangeOfTemperatureSymbol}, {specificHeat.EnergySymbol}, or {specificHeat.HeatCapacitySymbol}";
-
-                return Error(ErrorMessage);
-            }
-            catch (DivideByZeroException e)
-            {
-                ErrorMessage = e.Message;
-
-                return Error(ErrorMessage);
-            }
+            return _resultCreation.SetResult(Voltage, ohmLaw.OhmLawFormula, "Voltage");
         }
-        public CalculationResultModel ChangeInTemperatureCalclation(double initialTemperature, double finalTemperature)
+        public CalculationResultModel Ohm_Current(double voltage, double resistance)
+        {
+            LessThanZeroAndDivideChecks(voltage, resistance, "Voltage", "Resistance", resistance, "Resistance can't be 0");
+
+            double Current = voltage / resistance;
+
+            return _resultCreation.SetResult(Current, ohmLaw.OhmLawFormula, "current");
+        }
+        public CalculationResultModel Ohm_Resistance(double voltage, double current)
+        {
+            LessThanZeroAndDivideChecks(voltage, current, "Voltage", "Current", current, "Current can't be 0");
+
+            double Resistance = voltage / current;
+
+            return _resultCreation.SetResult(Resistance, ohmLaw.OhmLawFormula, "resistance");
+        }
+        public CalculationResultModel Heat_Energy(double mass, double heat, double aVATemperature)
+        {
+            _calculationValidation.LessThanZero(
+                new List<double> {
+                    mass, heat, aVATemperature
+                }, new List<string>
+                {
+                    "Mass", "Heat", "AVATemperature"
+                });
+            double Energy = mass * heat * aVATemperature;
+
+            return _resultCreation.SetResult(Energy, specificHeat.EnergyFormula, "Energy", specificHeat.EnergyUnit.ToString());
+        }
+        public CalculationResultModel Heat_Mass(double energy, double heat, double aVATemperature)
+        {
+            _calculationValidation.LessThanZero(
+                new List<double> {
+                    energy, heat, aVATemperature
+                },
+                new List<string>
+                {
+                    "Energy", "Heat", "AVATemperature"
+                });
+            _calculationValidation.CanNotBeZero(heat, aVATemperature, "Heat", "AVG Temperature");
+
+            double Mass = energy / (heat * aVATemperature);
+
+            return _resultCreation.SetResult(Mass, specificHeat.EnergyFormula, "Mass", specificHeat.MassUnit);
+        }
+        public CalculationResultModel Heat_HeatCapacity(double energy, double mass, double aVATemperature)
+        {
+            _calculationValidation.LessThanZero(
+                new List<double> {
+                    energy, mass, aVATemperature
+                },
+                new List<string>
+                {
+                    "Energy", "Mass", "AVATemperature"
+                });
+            _calculationValidation.CanNotBeZero(mass, aVATemperature, "Heat", "AVG Temperature");
+
+            double HeatCapacity = energy / (mass * aVATemperature);
+
+            return _resultCreation.SetResult(HeatCapacity, specificHeat.EnergyFormula, "Specific Heat", specificHeat.HeatCapacityUnit);
+        }
+        public CalculationResultModel Heat_ChangeOfTemperature(double energy, double mass, double heat)
+        {
+            _calculationValidation.LessThanZero(
+                new List<double> {
+                    energy, mass, heat
+                },
+                new List<string>
+                {
+                    "Energy", "Mass", "Heat"
+                });
+            _calculationValidation.CanNotBeZero(mass, heat, "Mass", "Heat");
+
+            double ChangeOfTemperature = energy / (mass * heat);
+
+            return _resultCreation.SetResult(ChangeOfTemperature, specificHeat.EnergyFormula, "AVG Temperature", specificHeat.TemperatureUnit.ToString());
+        }
+        public CalculationResultModel ChangeInTemperature(double initialTemperature, double finalTemperature)
         {
             double ChangeInTemperature = finalTemperature - initialTemperature;
 
-            return SetValues(ChangeInTemperature, "Initial Temperature - Final Temperature", "change In Temperature", "T");
+            return _resultCreation.SetResult(ChangeInTemperature, "Initial Temperature - Final Temperature", "change In Temperature", "T");
         }
-        public CalculationResultModel AverageSpeedCalclation(char request, double aVGSpeed, double aVGdistance, double aVGtime)
+        public CalculationResultModel AverageSpeed_Speed(double aVGdistance, double aVGtime)
         {
-            AverageSpeedModel speedModel = new AverageSpeedModel();
+            LessThanZeroAndDivideChecks(aVGdistance, aVGtime, "aVGdistance", "aVGtime", aVGtime, "Time Can't be 0");
 
-            if (aVGSpeed < 0 || aVGdistance < 0 || aVGtime < 0)
-            {
-                ErrorMessage = "AVG Speed, AVG Distance, or AVG Time can't be less than 0";
+            double AverageSpeed = aVGdistance / aVGtime;
 
-                return Error(ErrorMessage);
-            }
-
-            try
-            {
-                // S
-                if (request == speedModel.AVGSpeedSymbol)
-                {
-                    double AverageSpeed = aVGdistance / aVGtime;
-
-                    return SetValues(AverageSpeed, speedModel.AVGSpeedFormula, "Average Speed", speedModel.AVGSpeedUnit);
-                }
-
-                // D
-                if (request == speedModel.AVGDistanceSymbol)
-                {
-                    double Distance = aVGSpeed * aVGtime;
-
-                    return SetValues(Distance, speedModel.AVGDistanceFormula, "Average Distance", speedModel.AVGDistanceUnit);
-                }
-
-                // T
-                if (request == speedModel.AVGTimeSymbol)
-                {
-                    double Time = aVGdistance / aVGSpeed;
-
-                    return SetValues(Time, speedModel.AVGTimeFormula, "Average Time", speedModel.AVGTimeUnit.ToString());
-                }
-
-                ErrorMessage = $"request need to be {speedModel.AVGSpeedSymbol}, {speedModel.AVGDistanceSymbol}, or {speedModel.AVGTimeSymbol}";
-
-                return Error(ErrorMessage);
-            }
-            catch (DivideByZeroException e)
-            {
-                ErrorMessage = e.Message;
-
-                return Error(ErrorMessage);
-            }
+            return _resultCreation.SetResult(AverageSpeed, speedModel.AVGSpeedFormula, "Average Speed", speedModel.AVGSpeedUnit);
         }
-        public CalculationResultModel SpeedCalclation(char request, double speed, double distance, double time)
+        public CalculationResultModel AverageSpeed_Distance(double aVGSpeed, double aVGtime)
         {
-            SpeedDistanceTimeModel speedModel = new SpeedDistanceTimeModel();
+            _calculationValidation.LessThanZero(aVGtime, aVGSpeed, "AVG Time", "AVG Speed");
 
-            if (speed < 0 || distance < 0 || time < 0)
-            {
-                return Error("Speed, Distance, or Time can't be less than 0 ");
-            }
+            double Distance = aVGSpeed * aVGtime;
 
-            try
-            {
-                // S
-                if (request == speedModel.SpeedSymbol)
-                {
-                    double Speed = distance / time;
-
-                    return SetValues(Speed, speedModel.SpeedFormula, "Speed", speedModel.SpeedUnit);
-                }
-
-                // D
-                if (request == speedModel.DistanceSymbol)
-                {
-                    double Distance = speed * time;
-
-                    return SetValues(Distance, speedModel.DistanceFormula, "Distance", speedModel.DistanceUnit.ToString());
-                }
-
-                // T
-                if (request == speedModel.TimeSymbol)
-                {
-                    double Time = distance / speed;
-
-                    return SetValues(Time, speedModel.TimeFormula, "Time", speedModel.TimeUnit.ToString());
-                }
-
-                ErrorMessage = $"request need to be {speedModel.SpeedSymbol}, {speedModel.DistanceSymbol}, or {speedModel.TimeSymbol}";
-
-                return Error(ErrorMessage);
-            }
-            catch (DivideByZeroException e)
-            {
-                ErrorMessage = e.Message;
-                return Error(ErrorMessage);
-            }
+            return _resultCreation.SetResult(Distance, speedModel.AVGDistanceFormula, "Average Distance", speedModel.AVGDistanceUnit);
         }
-        public CalculationResultModel DensityCalclation(char request, double density, double mass, double volume)
+        public CalculationResultModel AverageSpeed_Time(double aVGSpeed, double aVGdistance)
         {
-            DensityModel densityModel = new DensityModel();
+            LessThanZeroAndDivideChecks(aVGdistance, aVGSpeed, "AVG Distance", "AVG Speed", aVGSpeed, "Speed Can't be 0");
 
-            if (density < 0 || mass < 0 || volume < 0)
-            {
-                ErrorMessage = "Density, Mass, or Volume can't be less than 0";
-                return Error(ErrorMessage);
-            }
+            double Time = aVGdistance / aVGSpeed;
 
-            try
-            {
-                // p
-                if (request == densityModel.DensitySymbol)
-                {
-                    double Dencity = mass / volume;
+            return _resultCreation.SetResult(Time, speedModel.AVGTimeFormula, "Average Time", speedModel.AVGTimeUnit.ToString());
+        }
+        public CalculationResultModel Density(double mass, double volume)
+        {
+            LessThanZeroAndDivideChecks(mass, volume, "Mass", "Volume", volume, "Volume can Not Be Zero");
 
-                    return SetValues(Dencity, densityModel.DensityFormula, "Dencity", densityModel.DensityUnit);
-                }
+            double Dencity = mass / volume;
 
-                // m
-                if (request == densityModel.MassSymbol)
-                {
-                    double Mass = density * volume;
+            return _resultCreation.SetResult(Dencity, densityModel.DensityFormula, "Dencity", densityModel.DensityUnit);
+        }
+        public CalculationResultModel Density_Mass(double density, double volume)
+        {
+            _calculationValidation.LessThanZero(density, volume, "Density", "Volume");
 
-                    return SetValues(Mass, densityModel.MassFormula, "Mass", densityModel.MassUnit);
-                }
+            double Mass = density * volume;
 
-                // T
-                if (request == densityModel.VolumeSymbol)
-                {
-                    double Volume = mass / density;
+            return _resultCreation.SetResult(Mass, densityModel.MassFormula, "Mass", densityModel.MassUnit);
+        }
+        public CalculationResultModel Density_Volume(double density, double mass)
+        {
+            LessThanZeroAndDivideChecks(density, mass, "Density", "Mass", density, "Density can't be zero");
+            double Volume = mass / density;
 
-                    return SetValues(Volume, densityModel.VolumeFormula, "Volume", densityModel.VolumeUnit);
-                }
-
-                ErrorMessage = $"request need to be {densityModel.DensitySymbol}, {densityModel.MassSymbol}, or {densityModel.VolumeSymbol}";
-
-                return Error(ErrorMessage);
-            }
-            catch (DivideByZeroException e)
-            {
-                ErrorMessage = e.Message;
-
-                return Error(ErrorMessage);
-            }
+            return _resultCreation.SetResult(Volume, densityModel.VolumeFormula, "Volume", densityModel.VolumeUnit);
         }
 
-        private CalculationResultModel SetValues(double value, string formula, string WhatCalculate, string unit = null, string message = null)
+        private void LessThanZeroAndDivideChecks(double valueOne, double valueTwo, string valueOneName, string valueTwoName,
+            double divideValue, string divideMessage)
         {
-            CalculationResultModel calculationResult = new CalculationResultModel
-            {
-
-                Formula = formula,
-                Value = value,
-                Unit = unit,
-                WhatCalculate = WhatCalculate,
-                Message = message
-            };
-
-            return calculationResult;
-        }
-        private CalculationResultModel Error(string message)
-        {
-            CalculationResultModel calculationResult = new CalculationResultModel
-            {
-                Error = true,
-                Message = message
-            };
-
-            return calculationResult;
+            _calculationValidation.DivideByZero(divideValue, divideMessage);
+            _calculationValidation.LessThanZero(valueOne, valueTwo, valueOneName, valueTwoName);
         }
     }
 }
