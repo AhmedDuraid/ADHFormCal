@@ -75,7 +75,7 @@ namespace ADHFormCalAPI.ErrorHandling
         }
         public void ListLimit(List<int> list, int limit)
         {
-            if (list.Count == limit)
+            if (list.Count > limit)
             {
                 throw new ArgumentException($"List Are Limited To {limit} Numbers");
             }
