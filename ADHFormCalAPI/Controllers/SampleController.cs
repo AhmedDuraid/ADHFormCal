@@ -11,9 +11,8 @@ namespace ADHFormCalAPI.Controllers
         [HttpGet]
         public IActionResult Get(double temp, char symbol)
         {
-            TemperatureModel temperatureModel = new TemperatureModel(temp, symbol);
 
-            return Ok(temperatureModel);
+            return Ok();
         }
 
         // GET api/<ValuesController>/5
