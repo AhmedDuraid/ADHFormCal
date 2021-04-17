@@ -15,7 +15,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         {
             _validation.LessThanZero(KilometersValue);
 
-            return new LengthModel
+            return new()
             {
                 Kilometers = KilometersValue,
                 Meters = KilometersValue / 0.001,
@@ -45,7 +45,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         public LengthModel FromCentimeters(double CentimetersValue)
         {
             _validation.LessThanZero(CentimetersValue);
-            return new LengthModel
+            return new()
             {
                 Kilometers = CentimetersValue / 100000,
                 Meters = CentimetersValue / 100,
@@ -61,7 +61,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         {
             _validation.LessThanZero(MillimeterValue);
 
-            return new LengthModel
+            return new()
             {
                 Kilometers = MillimeterValue / 1000000,
                 Meters = MillimeterValue / 1000,
@@ -77,7 +77,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         {
             _validation.LessThanZero(MilesValue);
 
-            return new LengthModel
+            return new()
             {
                 Kilometers = MilesValue / 0.62137,
                 Meters = MilesValue / 0.00062137,
@@ -93,7 +93,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         {
             _validation.LessThanZero(FootValue);
 
-            return new LengthModel
+            return new()
             {
                 Kilometers = FootValue / 3280.8,
                 Meters = FootValue / 3.2808,
@@ -108,7 +108,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         public LengthModel FromYard(double YardValue)
         {
             _validation.LessThanZero(YardValue);
-            return new LengthModel
+            return new()
             {
                 Kilometers = YardValue / 1093.6,
                 Meters = YardValue / 1.0936,
@@ -123,7 +123,7 @@ namespace ADHFormCalAPI.Calculator.Converters
         public LengthModel FromInche(double IncheValue)
         {
             _validation.LessThanZero(IncheValue);
-            return new LengthModel
+            return new()
             {
                 Kilometers = IncheValue / 39370,
                 Meters = IncheValue / 39.370,

@@ -7,7 +7,7 @@ namespace ADHFormCalAPI.Helpers
     {
         public CalculationResultModel SetResult(double value, string formula, string WhatCalculate, string unit = null, string message = null)
         {
-            CalculationResultModel calculationResult = new CalculationResultModel
+            CalculationResultModel calculationResult = new()
             {
                 Formula = formula,
                 Value = value,
@@ -20,7 +20,7 @@ namespace ADHFormCalAPI.Helpers
         }
         public CalculationResultModel SetResult(List<int> value, string formula, string WhatCalculate, string unit = null, string message = null)
         {
-            CalculationResultModel calculationResult = new CalculationResultModel
+            CalculationResultModel calculationResult = new()
             {
                 Formula = formula,
                 ListOfValues = value,
